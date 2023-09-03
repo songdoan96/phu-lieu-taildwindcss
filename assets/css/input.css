@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:disabled {
+  background-color: rgba(71, 71, 71, 0.253);
+}
+#items a {
+  text-decoration: underline;
+}
+svg {
+  pointer-events: none;
+}
