@@ -68,19 +68,33 @@ if (count($_GET) == 2 && isset($_GET['ma-hang'], $_GET['khoang'])) {
         ->orderBy('item_type')
         ->fetchAll();
 }
-if (count($_GET) == 4 && isset($_GET['ma-hang'], $_GET['type'])) {
+if (count($_GET) == 5 && isset($_GET['ma-hang'], $_GET['type'])) {
     $items = DB::table('items')
         ->where('item_style', '=', get('ma-hang'))
         ->where('item_type', '=', get('type'))
         ->where('item_color', '=', get('color'))
         ->where('item_size', '=', get('size'))
+        ->where('item_params', '=', get('params'))
         ->whereNull('order_id')
         ->where('item_sold_out', "=", 0)
         ->fetchAll();
+    $total = 0;
+    $totalSumOrder = 0;
+    $totalSumInventory = 0;
+    foreach ($items as $item) {
+        $total += $item->item_qty;
+        $totalOrders = DB::table('items')->where('order_id', '=', $item->item_id)->sum('item_qty');
+        $totalSumOrder += $totalOrders;
+        $totalSumInventory += $item->item_qty - $totalOrders;
+    }
 }
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
+
+
 ?>
 <div class="p-4" id="items">
+
+    <h3 class="text-center font-extrabold text-2xl dark:text-white mb-4">QUẢN LÝ XUẤT NHẬP TỒN PHỤ LIỆU</h3>
     <div class="relative overflow-x-auto md:overflow-x-hidden shadow-md ">
         <table class="w-full border-collapse border border-slate-400 text-sm text-center text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
@@ -120,7 +134,7 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
                         <td class="border px-1 py-2"><?= $item->item_customer ?></td>
                         <td class="border px-1 py-2"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
                         <td class="border px-1 py-2"><?= $item->item_model ?></td>
-                        <td class="border px-1 py-2"><a href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>"><?= $item->item_type ?></a></td>
+                        <td class="border px-1 py-2"><a href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a></td>
                         <td class="border px-1 py-2"><?= $item->item_item ?></td>
                         <td class="border px-1 py-2"><?= $item->item_color ?></td>
                         <td class="border px-1 py-2"><?= $item->item_params ?></td>
@@ -187,7 +201,17 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
                     </tr>
 
                 <?php } ?>
-
+                <?php
+                if (isset($total)) { ?>
+                    <tr class="text-sm font-bold overflow-hidden text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
+                        <td colspan="12">Tổng</td>
+                        <td class="border-x px-0 py-1 text-success-500"><?= formatNumber($total) ?></td>
+                        <td class="border-x px-0 py-1 text-danger-500"><?= formatNumber($totalSumOrder) ?></td>
+                        <td class="border-x px-0 py-1 text-warning-500"><?= formatNumber($totalSumInventory) ?></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>

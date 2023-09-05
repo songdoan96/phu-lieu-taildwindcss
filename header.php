@@ -19,11 +19,11 @@
             <div class="flex md:order-2">
 
                 <?php if (isset($_SESSION['user'])) { ?>
-                    <form method="get" action="items.php" class="relative overflow-hidden">
+                    <form method="get" action="items.php" class="hidden md:relative overflow-hidden">
                         <select name="search-type" id="form-search-list" class="border border-second-500 rounded p-2">
+                            <option value="type">PHỤ LIỆU</option>
                             <option value="ma-hang">MÃ HÀNG</option>
                             <option value="po">PO</option>
-                            <option value="type">PHỤ LIỆU</option>
                         </select>
                         <input type="text" name="search-value" id="" class="h-full rounded-r-lg border p-2" placeholder="Tìm kiếm...">
                         <button type="submit" class="absolute right-0 bg-blue-600 text-white h-full px-2 rounded-r-lg">
@@ -33,18 +33,23 @@
                             <span class="sr-only">Search</span>
                         </button>
                     </form>
-
+                    <button type="button" id="mobile-btn" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                        </svg>
+                    </button>
 
                 <?php } ?>
 
                 <?php
                 if (!isset($_SESSION['user'])) { ?>
-                    <a class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="login.php">Đăng nhập</a>
+                    <a class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="login.php">Đăng nhập</a>
                 <?php } else { ?>
-                    <a class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="logout.php">Đăng xuất</a>
+                    <a class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="logout.php">Đăng xuất</a>
                 <?php                }
                 ?>
-                <div class="flex items-center ml-6 dark:border-slate-800">
+                <div class="flex items-center ml-2 md:ml-6 dark:border-slate-800">
                     <button type="button" id="btn-dark">
                         <span class="dark:hidden">
                             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
@@ -65,26 +70,37 @@
             </div>
             <?php if (isset($_SESSION['user'])) { ?>
                 <div class="items-center justify-between w-full md:flex md:w-auto md:order-1" id="navbar-search">
-                    <div id="mobile-search" class="relative mt-3 hidden md:hidden">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </div>
-                        <input type="text" id="search-navbar" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div id="mobile-search" class="relative mt-3 hidden  md:hidden">
+
+                        <form method="get" action="items.php" class="flex items-center md:hidden overflow-hidden max-w-xl">
+                            <select name="search-type" id="form-search-list" class="border border-second-500 rounded p-2">
+                                <option value="type">PHỤ LIỆU</option>
+                                <option value="ma-hang">MÃ HÀNG</option>
+                                <option value="po">PO</option>
+                            </select>
+                            <input type="text" name="search-value" id="" class="h-full w-full rounded-r-lg border p-2" placeholder="Tìm kiếm...">
+                            <button type="submit" class="absolute right-0 bg-blue-600 text-white h-full px-2 rounded-r-lg">
+                                <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                                </svg>
+                                <span class="sr-only">Search</span>
+                            </button>
+                        </form>
                     </div>
                     <ul id="main-nav" class="hidden uppercase md:flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
                             <a href="khoang.php" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Khoang</a>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <a href="items.php?qlxn" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">QL xuất nhập</a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="items.php?het" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">pl hết</a>
                         </li>
-
+                        <li>
+                            <a href="can-doi.php" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">cân đối</a>
+                        </li>
 
                     </ul>
 

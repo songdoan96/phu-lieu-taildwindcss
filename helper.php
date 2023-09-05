@@ -26,5 +26,9 @@ function formatNumber($number)
     if (empty($number)) {
         return 0;
     }
-    return number_format($number, 2, '.', ' ');
+    if (fmod($number, 1) == 0) {
+        return number_format($number, 0, '.', ' ');
+    } else {
+        return number_format($number, 2, '.', ' ');
+    }
 }

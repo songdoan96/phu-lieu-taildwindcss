@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add-item'])) {
         'item_customer' =>  postToUpper('customer'),
         'item_style' =>  postToUpper('style'),
         'item_type' =>  postToUpper('type'),
-        'item_style' =>  postToUpper('customer'),
+        'item_style' =>  postToUpper('style'),
         'item_container' => postToUpper('container'),
         'item_model' =>  postToUpper('model'),
         'item_item' =>  postToUpper('item'),
