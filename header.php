@@ -12,20 +12,20 @@
 
 </head>
 
-<body class="bg-gray-100  dark:bg-black">
+<body class="bg-gray-100 dark:bg-gray-600">
     <nav class="shadow bg-white border-gray-200 dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="index.php" class="text-main-600 dark:text-white flex items-center uppercase text-2xl font-extrabold">Hòa Thọ</a>
             <div class="flex md:order-2">
 
                 <?php if (isset($_SESSION['user'])) { ?>
-                    <form method="get" action="items.php" class="hidden md:relative overflow-hidden">
+                    <form method="get" action="items.php" class="hidden md:block relative overflow-hidden">
                         <select name="search-type" id="form-search-list" class="border border-second-500 rounded p-2">
                             <option value="type">PHỤ LIỆU</option>
                             <option value="ma-hang">MÃ HÀNG</option>
                             <option value="po">PO</option>
                         </select>
-                        <input type="text" name="search-value" id="" class="h-full rounded-r-lg border p-2" placeholder="Tìm kiếm...">
+                        <input type="text" name="search-value" id="search-input" class="h-full rounded-r-lg border p-2" placeholder="Tìm kiếm...">
                         <button type="submit" class="absolute right-0 bg-blue-600 text-white h-full px-2 rounded-r-lg">
                             <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
@@ -70,15 +70,15 @@
             </div>
             <?php if (isset($_SESSION['user'])) { ?>
                 <div class="items-center justify-between w-full md:flex md:w-auto md:order-1" id="navbar-search">
-                    <div id="mobile-search" class="relative mt-3 hidden  md:hidden">
+                    <div id="mobile-search" class="relative mt-3 hidden md:hidden">
 
                         <form method="get" action="items.php" class="flex items-center md:hidden overflow-hidden max-w-xl">
-                            <select name="search-type" id="form-search-list" class="border border-second-500 rounded p-2">
+                            <select name="search-type" id="form-mobile-search-list" class="border border-second-500 rounded p-2">
                                 <option value="type">PHỤ LIỆU</option>
                                 <option value="ma-hang">MÃ HÀNG</option>
                                 <option value="po">PO</option>
                             </select>
-                            <input type="text" name="search-value" id="" class="h-full w-full rounded-r-lg border p-2" placeholder="Tìm kiếm...">
+                            <input type="text" name="search-value" id="search-mobile-input" class="h-full w-full rounded-r-lg border p-2" placeholder="Tìm kiếm...">
                             <button type="submit" class="absolute right-0 bg-blue-600 text-white h-full px-2 rounded-r-lg">
                                 <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
