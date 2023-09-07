@@ -1,6 +1,7 @@
 <?php
 require_once "init.php";
 include_once "header.php";
+$headerTitle = "QUẢN LÝ XUẤT NHẬP TỒN";
 if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['delete-id'])) {
     DB::table('items')->where('item_id', '=', post('delete-id'))->delete();
     if (isset($_POST['redo-sold-out'])) {
@@ -24,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['sold-out'])) {
 }
 
 if (count($_GET) == 1 && isset($_GET['ma-hang'])) {
+    $headerTitle = "QUẢN LÝ XUẤT NHẬP TỒN MÃ HÀNG " . $_GET['ma-hang'];
+
     $items = DB::table('items')
         ->where('item_style', '=', get('ma-hang'))
         ->whereNull('order_id')
@@ -32,19 +35,23 @@ if (count($_GET) == 1 && isset($_GET['ma-hang'])) {
         ->fetchAll();
 }
 if (count($_GET) == 1 && isset($_GET['khoang'])) {
+    $headerTitle = "QUẢN LÝ XUẤT NHẬP TỒN KHOANG " . $_GET['khoang'];
+
     $items = DB::table('items')
         ->where('item_container', '=', get('khoang'))
         ->whereNull('order_id')
         ->where('item_sold_out', "=", 0)
         ->fetchAll();
 }
-if (count($_GET) == 1 && isset($_GET['qlxn'])) {
-    $items = DB::table('items')
-        ->orderBy('created_at', 'desc')
-        ->limit(50)
-        ->fetchAll();
-}
+// if (count($_GET) == 1 && isset($_GET['qlxn'])) {
+//     $items = DB::table('items')
+//         ->orderBy('created_at', 'desc')
+//         ->limit(50)
+//         ->fetchAll();
+// }
 if (count($_GET) == 1 && isset($_GET['het'])) {
+    $headerTitle = "PHỤ LIỆU ĐÃ HẾT";
+
     $items = DB::table('items')
         // ->orderBy('created_at', 'desc')
         ->where('item_sold_out', '=', 1)
@@ -67,6 +74,8 @@ if (count($_GET) == 2 && isset($_GET['search-type'], $_GET['search-value'])) {
         ->fetchAll();
 }
 if (count($_GET) == 2 && isset($_GET['ma-hang'], $_GET['khoang'])) {
+    $headerTitle = "MÃ HÀNG " . $_GET['ma-hang'] . " - KHOANG " . $_GET['khoang'];
+
     $items = DB::table('items')
         ->where('item_style', '=', get('ma-hang'))
         ->where('item_container', '=', get('khoang'))
@@ -76,6 +85,8 @@ if (count($_GET) == 2 && isset($_GET['ma-hang'], $_GET['khoang'])) {
         ->fetchAll();
 }
 if (count($_GET) == 5 && isset($_GET['ma-hang'], $_GET['type'])) {
+    $headerTitle = "QL XUẤT NHẬP MÃ HÀNG " . $_GET['ma-hang'] . " - " . $_GET['type'];
+
     $items = DB::table('items')
         ->where('item_style', '=', get('ma-hang'))
         ->where('item_type', '=', get('type'))
@@ -103,8 +114,7 @@ if (!count($items)) {
 ?>
 
 <div class="p-4" id="items">
-
-    <h2 class="text-center font-bold text-2xl dark:text-white mb-4">QUẢN LÝ XUẤT NHẬP TỒN PHỤ LIỆU</h2>
+    <h2 class="text-center font-bold text-2xl dark:text-white mb-4"><?= $headerTitle ?></h2>
     <div class="relative overflow-x-auto md:overflow-x-hidden shadow-md ">
         <table class="w-full border-collapse border border-slate-400 text-sm text-center text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
@@ -132,15 +142,15 @@ if (!count($items)) {
             <tbody>
 
 
-                <?php foreach ($items as $index => $item) {
+                <?php foreach ($items as $item) {
                     $class = $item->order_id ? "bg-danger-500 text-white" : "bg-success-500 text-black";
                     $totalOrder = DB::table('items')->where('order_id', '=', $item->item_id)->sum('item_qty');
                     $inventory = $item->item_qty - $totalOrder;
-                    $index++;
+
                 ?>
                     <tr item-id="<?= $item->item_id ?>" class="<?= $class ?> dark:odd:bg-gray-500 dark:even:bg-gray-600 text-black dark:text-white  dark:border-gray-700 hover:contrast-75 transition">
                         <td class="border px-1 py-2"><?= formatDate($item->item_date) ?></td>
-                        <td class="border px-1 py-2"><?= $item->item_container ?></td>
+                        <td class="border px-1 py-2"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a></td>
                         <td class="border px-1 py-2"><?= $item->item_customer ?></td>
                         <td class="border px-1 py-2"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
                         <td class="border px-1 py-2"><?= $item->item_model ?></td>

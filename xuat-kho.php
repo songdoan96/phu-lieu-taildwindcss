@@ -3,7 +3,9 @@ require_once "init.php";
 require_once "header.php";
 if (isset($_GET['id'])) {
     $item = DB::table('items')->where('item_id', '=', get('id'))->fetch();
-    $totalOrder = DB::table('items')->where('order_id', '=', get('id'))->sum('item_qty');
+    $totalOrder = DB::table('items')
+        ->where('order_id', '=', get('id'))
+        ->sum('item_qty');
     $inventory = $item->item_qty - $totalOrder;
 }
 if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['order-item'])) {
@@ -101,11 +103,8 @@ if ($item) { ?>
 
             <input required type="hidden" value=<?= $item->item_id ?> id="id" name="id" class="hidden">
             <div class="flex gap-2 justify-end mt-4">
-                <a href="index.php" class="flex  px-5 py-2.5 text-sm font-medium text-center text-white bg-danger-700 rounded-lg focus:ring-4 focus:ring-danger-200 dark:focus:ring-danger-900 hover:bg-danger-800">
-                    Hủy
-                </a>
                 <button type="submit" name="order-item" class="flex  px-5 py-2.5 text-sm font-medium text-center text-white bg-second-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-second-800">
-                    Thêm
+                    XUẤT
                 </button>
             </div>
         </form>
