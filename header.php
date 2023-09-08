@@ -12,7 +12,7 @@
 
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-600">
+<body class="bg-gray-50 dark:bg-gray-700">
     <nav class="shadow bg-white border-gray-200 dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="index.php" class="text-main-600 dark:text-white flex items-center uppercase text-2xl font-extrabold">Hòa Thọ</a>
@@ -122,7 +122,7 @@
         <div id="toast" class="fixed flex items-center bottom-4 right-4 z-50">
             <!-- <a href="" class="bg-success-100 border-success-400 text-success-900 bg-success-50"></a> -->
             <!-- <a href="" class="bg-danger-100 border-danger-400 text-danger-900 bg-danger-50"></a> -->
-            <div x-if="showToast" id="toast-wrap" class="border-l-4 flex items-center w-full max-w-xs p-4 bg-<?= $toastType ?>-100 border-<?= $toastType ?>-400 text-<?= $toastType ?>-900 rounded-lg shadow-md" role="alert">
+            <div id="toast-wrap" class="border-l-4 flex items-center w-full max-w-xs p-4 bg-<?= $toastType ?>-100 border-<?= $toastType ?>-400 text-<?= $toastType ?>-900 rounded-lg shadow-md" role="alert">
                 <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-<?= $toastType ?>-100 bg-<?= $toastType ?>-50 rounded-lg ">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
