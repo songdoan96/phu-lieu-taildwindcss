@@ -99,8 +99,10 @@
                             <a href="items.php?het" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">pl hết</a>
                         </li>
                         <li>
-                            <a href="can-doi.php" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">cân đối</a>
+                            <a href="can-doi.php" class="py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 flex items-center">cân đối</a>
+
                         </li>
+
 
                     </ul>
 
@@ -116,12 +118,12 @@
     <?php
     if (isset($_SESSION['success']) || isset($_SESSION['error'])) {
         $toastMessage = $_SESSION['success'] ?? $_SESSION['error'];
-        $toastType = isset($_SESSION['success']) ? "success" : "danger";
+        $toastType = isset($_SESSION['success']) ? "green" : "red";
     }
     if (isset($toastMessage)) { ?>
         <div id="toast" class="fixed flex items-center bottom-4 right-4 z-50">
-            <!-- <a href="" class="bg-success-100 border-success-400 text-success-900 bg-success-50"></a> -->
-            <!-- <a href="" class="bg-danger-100 border-danger-400 text-danger-900 bg-danger-50"></a> -->
+            <!-- <a href="" class="bg-green-100 border-green-400 text-green-900 bg-green-50"></a> -->
+            <!-- <a href="" class="bg-red-100 border-red-400 text-red-900 bg-red-50"></a> -->
             <div id="toast-wrap" class="border-l-4 flex items-center w-full max-w-xs p-4 bg-<?= $toastType ?>-100 border-<?= $toastType ?>-400 text-<?= $toastType ?>-900 rounded-lg shadow-md" role="alert">
                 <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-<?= $toastType ?>-100 bg-<?= $toastType ?>-50 rounded-lg ">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

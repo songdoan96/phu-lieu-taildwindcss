@@ -1,8 +1,10 @@
 <?php
 require_once "init.php";
 require_once "header.php";
+
 if (isset($_GET['id'])) {
-    $item = DB::table('items')->where('item_id', '=', get('id'))->fetch();
+    $item = DB::table('items')
+        ->where('item_id', '=', get('id'))->fetch();
     $totalOrder = DB::table('items')->where('order_id', '=', get('id'))->sum('item_qty');
     $inventory = $item->item_qty - $totalOrder;
 }
@@ -36,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add-item'])) {
     exit();
 }
 ?>
-
 
 <div class="container mx-auto p-4">
     <form id="form-add-customer" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="bg-white max-w-xl mx-auto p-4 shadow-lg rounded-md">

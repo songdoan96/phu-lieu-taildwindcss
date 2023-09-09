@@ -156,7 +156,7 @@ if (isset($_GET['style'], $_GET['customer'])) { ?>
                                 if ($item->item_plan) { ?>
                                     <a class="underline" href="can-doi.php?customer=<?= $item->item_customer ?>&style=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>&plan=<?= $item->item_plan ?>&norm=<?= $item->item_norm ?>"><?= $item->item_plan ?></a>
                                 <?php } else { ?>
-                                    <a class="no-underline flex justify-center" href="can-doi.php?customer=<?= $item->item_customer ?>&style=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>&plan=<?= $item->item_plan ?>&norm=<?= $item->item_norm ?>">
+                                    <a class="no-underline flex justify-center transform hover:text-blue-500 transition hover:scale-110" href="can-doi.php?customer=<?= $item->item_customer ?>&style=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>&plan=<?= $item->item_plan ?>&norm=<?= $item->item_norm ?>">
                                         <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
