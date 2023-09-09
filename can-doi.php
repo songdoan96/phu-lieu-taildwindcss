@@ -114,9 +114,9 @@ if (isset($_GET['style'], $_GET['customer'])) { ?>
         <h2 class="text-center font-bold text-2xl dark:text-white mb-4 uppercase">cân đối mã hàng <?= get('style') ?></h2>
         <div class="overflow-x-auto md:overflow-x-hidden shadow-md">
 
-            <table class="w-full border-collapse border border-slate-400 text-sm text-center text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-50 uppercase bg-success-500 dark:bg-gray-700 dark:text-white">
-                    <tr>
+            <table class="w-full border-collapse table-auto text-xs">
+                <thead>
+                    <tr class="bg-gray-300 dark:bg-slate-900/70 dark:text-white text-gray-600 uppercase text-sm leading-normal text-center">
                         <th class="border py-1 px-2 w-14">Khách hàng</th>
                         <th class="border py-1 px-2">Mã hàng</th>
                         <th class="border py-1 px-2">Loại</th>
@@ -142,7 +142,7 @@ if (isset($_GET['style'], $_GET['customer'])) { ?>
                         ->groupBy('item_type, item_color, item_size, item_params')
                         ->fetchAll();
                     foreach ($items as $item) { ?>
-                        <tr item-id="<?= $item->item_id ?>" class="even:bg-gray-400 odd:bg-gray-200 dark:odd:bg-gray-500 dark:even:bg-gray-600 text-black dark:text-white  dark:border-gray-700 hover:contrast-75 transition">
+                        <tr item-id="<?= $item->item_id ?>" class="text-center text-sm odd:bg-gray-50 even:bg-gray-200 hover:bg-gray-300 dark:bg-gray-600  dark:hover:bg-gray-700 dark:text-white transition">
 
                             <td class="border px-1 py-2"><?= $item->item_customer ?></td>
                             <td class="border px-1 py-2"><a class="underline" href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>

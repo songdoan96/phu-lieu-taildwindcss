@@ -109,136 +109,135 @@ if (count($_GET) == 5 && isset($_GET['ma-hang'], $_GET['type'])) {
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 if (!count($items)) {
     echo "<h2 class='p-4 text-center font-bold text-2xl dark:text-white mb-4'>PHỤ LIỆU TRỐNG</h2>";
-    exit();
+    // exit();
 }
+if (count($items)) { ?>
+    <div class="p-4" id="items">
+        <h2 class="text-center font-bold text-2xl dark:text-white mb-4"><?= $headerTitle ?></h2>
+        <div class="relative overflow-x-auto md:overflow-x-hidden shadow-md ">
+            <table class="w-full border-collapse table-auto text-xs">
+                <thead>
+                    <tr class="bg-gray-300 dark:bg-slate-900/70 dark:text-white text-gray-600 uppercase text-sm leading-normal text-center">
+                        <th class="border py-2 px-1 w-24" style="min-width: 90px;">Ngày</th>
+                        <th class="border py-2 px-1">Khoang</th>
+                        <th class="border py-2 px-1">Khách hàng</th>
+                        <th class="border py-2 px-1">Mã hàng</th>
+                        <th class="border py-2 px-1">Model</th>
+                        <th class="border py-2 px-1 w-36" style="min-width: 140px;">Loại</th>
+                        <th class="border py-2 px-1">Item</th>
+                        <th class="border py-2 px-1">Màu</th>
+                        <th class="border py-2 px-1">Thông số</th>
+                        <th class="border py-2 px-1">Size</th>
+                        <th class="border py-2 px-1">Đơn vị</th>
+                        <th class="border py-2 px-1">PO</th>
+                        <th class="border py-2 px-1">Nhập</th>
+                        <th class="border py-2 px-1">Xuất</th>
+                        <th class="border py-2 px-1">Tồn</th>
+                        <th class="border py-2 px-1">Ghi chú</th>
+                        <th class="border"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <?php foreach ($items as $item) {
+                        $class = $item->order_id ? "bg-danger-500 text-white" : "bg-success-500 text-black";
+                        $totalOrder = DB::table('items')
+                            ->where('order_id', '=', $item->item_id)
+                            ->sum('item_qty');
+                        $inventory = $item->item_qty - $totalOrder;
+
+                    ?>
+                        <tr item-id="<?= $item->item_id ?>" class="text-center text-sm odd:bg-gray-50 even:bg-gray-200 hover:bg-gray-300 dark:bg-gray-600  dark:hover:bg-gray-700 dark:text-white transition">
+                            <td class="border px-1 py-2"><?= formatDate($item->item_date) ?></td>
+                            <td class="border px-1 py-2"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a></td>
+                            <td class="border px-1 py-2"><?= $item->item_customer ?></td>
+                            <td class="border px-1 py-2"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
+                            <td class="border px-1 py-2"><?= $item->item_model ?></td>
+                            <td class="border px-1 py-2"><a href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a></td>
+                            <td class="border px-1 py-2"><?= $item->item_item ?></td>
+                            <td class="border px-1 py-2"><?= $item->item_color ?></td>
+                            <td class="border px-1 py-2"><?= $item->item_params ?></td>
+                            <td class="border px-1 py-2"><?= $item->item_size ?></td>
+                            <td class="border px-1 py-2"><?= $item->item_unit ?></td>
+                            <td class="border px-1 py-2"><?= $item->item_po ?></td>
+                            <?php
+                            if ($item->order_id) { ?>
+                                <td class="border px-1 py-2"></td>
+                                <td class="border px-1 py-2 dark:bg-red-600 "><?= formatNumber($item->item_qty) ?></td>
+                                <td class="border px-1 py-2"></td>
+                            <?php  } else { ?>
+                                <td class="border bg-green-200 text-green-600 underline-offset-2 py-2 px-1"><a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a></td>
+                                <td class="border bg-red-200 text-red-600 underline-offset-2 py-2 px-1">
+                                    <?php
+                                    if ($inventory != 0) { ?>
+                                        <a href="xuat-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($totalOrder) ?></a>
+                                    <?php  } else { ?>
+                                        <?= formatNumber($totalOrder) ?>
+                                    <?php } ?>
+                                </td>
+                                <td class="border bg-blue-200 text-blue-600 underline-offset-2 py-2 px-1">
+                                    <?= $inventory != 0 ? formatNumber($inventory) : "" ?>
+                                    <?php
+                                    if ($inventory == 0) { ?>
+                                        <form class="inline-block ml-1" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+                                            <input type="hidden" value="<?= $item->item_id ?>" name="sold-out">
+                                            <button class="bg-danger-500 text-white p-1 rounded" type="submit">HẾT</button>
+                                        </form>
+                                    <?php } ?>
+                                </td>
+
+                            <?php } ?>
+                            <td class="border px-1 py-2"><?= $item->item_note ?></td>
+                            <td class="border w-16">
+                                <div class="flex gap-1 justify-center items-center">
+
+                                    <?php
+                                    if (!$item->order_id && $totalOrder != 0) { ?>
+                                        <button title="Chi tiết xuất" type="button" class="btn-show-order w-5 transform hover:text-info-500 hover:scale-110" data-id="<?= $item->item_id ?>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </button>
+                                    <?php }
+                                    ?>
+                                    <form class="flex" onsubmit="event.preventDefault();if (confirm('Có chắc muốn xóa?')) this.submit()" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+                                        <input type="hidden" name="delete-id" value="<?= $item->item_id ?>">
+
+                                        <button type="submit" class="w-5 transform hover:text-red-500 hover:scale-110">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    <?php } ?>
+                    <?php
+                    if (isset($total)) { ?>
+                        <tr class="text-sm font-bold overflow-hidden text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
+                            <td colspan="12">Tổng</td>
+                            <td class="border-x px-0 py-1 text-success-500"><?= formatNumber($total) ?></td>
+                            <td class="border-x px-0 py-1 text-danger-500"><?= formatNumber($totalSumOrder) ?></td>
+                            <td class="border-x px-0 py-1 text-warning-500"><?= formatNumber($totalSumInventory) ?></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+<?php }
 ?>
 
-<div class="p-4" id="items">
-    <h2 class="text-center font-bold text-2xl dark:text-white mb-4"><?= $headerTitle ?></h2>
-    <div class="relative overflow-x-auto md:overflow-x-hidden shadow-md ">
-        <table class="w-full border-collapse border border-slate-400 text-sm text-center text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
-                <tr>
-                    <th class="border py-1 px-2 w-24">Ngày</th>
-                    <th class="border py-1 px-2 w-14">Khoang</th>
-                    <th class="border py-1 px-2 w-14">Khách hàng</th>
-                    <th class="border py-1 px-2">Mã hàng</th>
-                    <th class="border py-1 px-2">Model</th>
-                    <th class="border py-1 px-2">Loại</th>
-                    <th class="border py-1 px-2">Item</th>
-                    <th class="border py-1 px-2">Màu</th>
-                    <th class="border py-1 px-2">Thông số</th>
-                    <th class="border py-1 px-2 w-20">Size</th>
-                    <th class="border py-1 px-2">Đơn vị</th>
-                    <th class="border py-1 px-2">PO</th>
-                    <th class="border py-1 px-2 w-20">Nhập</th>
-                    <th class="border py-1 px-2 w-20">Xuất</th>
-                    <th class="border py-1 px-2 w-20">Tồn</th>
-                    <th class="border py-1 px-2 w-20">Ghi chú</th>
-                    <th class="border w-16"></th>
-
-                </tr>
-            </thead>
-            <tbody>
-
-
-                <?php foreach ($items as $item) {
-                    $class = $item->order_id ? "bg-danger-500 text-white" : "bg-success-500 text-black";
-                    $totalOrder = DB::table('items')->where('order_id', '=', $item->item_id)->sum('item_qty');
-                    $inventory = $item->item_qty - $totalOrder;
-
-                ?>
-                    <tr item-id="<?= $item->item_id ?>" class="<?= $class ?> dark:odd:bg-gray-500 dark:even:bg-gray-600 text-black dark:text-white  dark:border-gray-700 hover:contrast-75 transition">
-                        <td class="border px-1 py-2"><?= formatDate($item->item_date) ?></td>
-                        <td class="border px-1 py-2"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a></td>
-                        <td class="border px-1 py-2"><?= $item->item_customer ?></td>
-                        <td class="border px-1 py-2"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
-                        <td class="border px-1 py-2"><?= $item->item_model ?></td>
-                        <td class="border px-1 py-2"><a href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a></td>
-                        <td class="border px-1 py-2"><?= $item->item_item ?></td>
-                        <td class="border px-1 py-2"><?= $item->item_color ?></td>
-                        <td class="border px-1 py-2"><?= $item->item_params ?></td>
-                        <td class="border px-1 py-2"><?= $item->item_size ?></td>
-                        <td class="border px-1 py-2"><?= $item->item_unit ?></td>
-                        <td class="border px-1 py-2"><?= $item->item_po ?></td>
-                        <?php
-                        if ($item->order_id) { ?>
-                            <td class="border px-1 py-2"></td>
-                            <td class="border px-1 py-2 dark:bg-red-600 "><?= formatNumber($item->item_qty) ?>
-
-                            </td>
-                            <td class="border px-1 py-2"></td>
-                        <?php  } else { ?>
-                            <td class="border px-1 py-2 dark:bg-green-600 "><a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a></td>
-                            <td class="border px-1 py-2">
-                                <?php
-                                if ($inventory != 0) { ?>
-                                    <a href="xuat-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($totalOrder) ?></a>
-                                <?php  } else { ?>
-                                    <?= formatNumber($totalOrder) ?>
-                                <?php } ?>
-                            </td>
-                            <td class="border px-1 py-2"><?= $inventory != 0 ? formatNumber($inventory) : "" ?>
-                                <?php
-                                if ($inventory == 0) { ?>
-                                    <form class="inline-block ml-1" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-                                        <input type="hidden" value="<?= $item->item_id ?>" name="sold-out">
-                                        <button class="bg-danger-500 text-white p-1 rounded" type="submit">HẾT</button>
-                                    </form>
-                                <?php } ?>
-                            </td>
-
-                        <?php } ?>
-                        <td class="border px-1 py-2"><?= $item->item_note ?></td>
-                        <td class="border w-16">
-                            <div class="flex gap-1 justify-center items-center">
-
-                                <?php
-                                if (!$item->order_id && $totalOrder != 0) { ?>
-                                    <button title="Chi tiết xuất" type="button" class="btn-show-order inline-block" data-id="<?= $item->item_id ?>">
-                                        <svg class="block" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <g id="Vector">
-                                                <path d="M3.5868 13.7788C5.36623 15.5478 8.46953 17.9999 12.0002 17.9999C15.5308 17.9999 18.6335 15.5478 20.413 13.7788C20.8823 13.3123 21.1177 13.0782 21.2671 12.6201C21.3738 12.2933 21.3738 11.7067 21.2671 11.3799C21.1177 10.9218 20.8823 10.6877 20.413 10.2211C18.6335 8.45208 15.5308 6 12.0002 6C8.46953 6 5.36623 8.45208 3.5868 10.2211C3.11714 10.688 2.88229 10.9216 2.7328 11.3799C2.62618 11.7067 2.62618 12.2933 2.7328 12.6201C2.88229 13.0784 3.11714 13.3119 3.5868 13.7788Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                <path d="M10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                            </g>
-                                        </svg>
-                                    </button>
-                                <?php }
-                                ?>
-                                <form class="flex" onsubmit="event.preventDefault();if (confirm('Có chắc muốn xóa?')) this.submit()" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-                                    <input type="hidden" name="delete-id" value="<?= $item->item_id ?>">
-
-                                    <button type="submit"><svg x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
-                                            <g fill="#fff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                <g transform="scale(8.53333,8.53333)">
-                                                    <path d="M14.98438,2.48633c-0.55152,0.00862 -0.99193,0.46214 -0.98437,1.01367v0.5h-5.5c-0.26757,-0.00363 -0.52543,0.10012 -0.71593,0.28805c-0.1905,0.18793 -0.29774,0.44436 -0.29774,0.71195h-1.48633c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h18c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587h-1.48633c0,-0.26759 -0.10724,-0.52403 -0.29774,-0.71195c-0.1905,-0.18793 -0.44836,-0.29168 -0.71593,-0.28805h-5.5v-0.5c0.0037,-0.2703 -0.10218,-0.53059 -0.29351,-0.72155c-0.19133,-0.19097 -0.45182,-0.29634 -0.72212,-0.29212zM6,9l1.79297,15.23438c0.118,1.007 0.97037,1.76563 1.98438,1.76563h10.44531c1.014,0 1.86538,-0.75862 1.98438,-1.76562l1.79297,-15.23437z"></path>
-                                                </g>
-                                            </g>
-                                        </svg></button>
-                                </form>
-                            </div>
-
-                        </td>
-                    </tr>
-
-                <?php } ?>
-                <?php
-                if (isset($total)) { ?>
-                    <tr class="text-sm font-bold overflow-hidden text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
-                        <td colspan="12">Tổng</td>
-                        <td class="border-x px-0 py-1 text-success-500"><?= formatNumber($total) ?></td>
-                        <td class="border-x px-0 py-1 text-danger-500"><?= formatNumber($totalSumOrder) ?></td>
-                        <td class="border-x px-0 py-1 text-warning-500"><?= formatNumber($totalSumInventory) ?></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-    </div>
-
-
-</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -264,7 +263,7 @@ if (!count($items)) {
                     el.disabled = true;
                     let html = "";
                     data.itemsOrder.forEach(item => {
-                        html += `<tr class="bg-danger-500 text-white dark:bg-danger-800 dark:border-gray-700 hover:contrast-75 transition dark:hover:bg-gray-600">
+                        html += `<tr class="text-center text-sm bg-red-500 hover:bg-opacity-80 text-white dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-white transition">
                         <td class="border px-1 py-2">${item.item_date}</td>
                         <td class="border px-1 py-2">${item.item_container}</td>
                         <td class="border px-1 py-2">${item.item_customer}</td>
@@ -289,9 +288,11 @@ if (!count($items)) {
                                         <input type="hidden" name="redo-sold-out" value="${item.order_id}">
                                     <?php }
                                     ?>
-                                <button type="submit"><svg x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
-<g fill="#fff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M14.98438,2.48633c-0.55152,0.00862 -0.99193,0.46214 -0.98437,1.01367v0.5h-5.5c-0.26757,-0.00363 -0.52543,0.10012 -0.71593,0.28805c-0.1905,0.18793 -0.29774,0.44436 -0.29774,0.71195h-1.48633c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h18c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587h-1.48633c0,-0.26759 -0.10724,-0.52403 -0.29774,-0.71195c-0.1905,-0.18793 -0.44836,-0.29168 -0.71593,-0.28805h-5.5v-0.5c0.0037,-0.2703 -0.10218,-0.53059 -0.29351,-0.72155c-0.19133,-0.19097 -0.45182,-0.29634 -0.72212,-0.29212zM6,9l1.79297,15.23438c0.118,1.007 0.97037,1.76563 1.98438,1.76563h10.44531c1.014,0 1.86538,-0.75862 1.98438,-1.76562l1.79297,-15.23437z"></path></g></g>
-</svg></button>
+                                <button type="submit" class="w-5 transform hover:text-red-900 hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                        </svg>
+                                </button>
                             </form>
                         </td>
                     </tr>`;
