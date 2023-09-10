@@ -97,7 +97,7 @@ if (isset($_GET['style'], $_GET['customer'], $_GET['type'])) { ?>
 
 
             <div class="flex gap-2 justify-end mt-4">
-                <a href="index.php" class="flex  px-5 py-2.5 text-sm font-medium text-center text-white bg-danger-700 rounded-lg focus:ring-4 focus:ring-danger-200 dark:focus:ring-danger-900 hover:bg-danger-800">
+                <a href="index.php" class="flex  px-5 py-2.5 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800">
                     Hủy
                 </a>
                 <button type="submit" class="flex  px-5 py-2.5 text-sm font-medium text-center text-white bg-second-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-second-800">

@@ -168,7 +168,7 @@ if (count($items)) { ?>
                                 <td class="border px-1 py-2"></td>
                             <?php  } else { ?>
                                 <td class="border bg-green-700 text-green-200 underline-offset-2 py-2 px-1"><a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a></td>
-                                <td class="border bg-red-700 text-red-200 underline-offset-2 py-2 px-1">
+                                <td class="border bg-orange-700 text-orange-200 underline-offset-2 py-2 px-1">
                                     <?php
                                     if ($inventory != 0) { ?>
                                         <a href="xuat-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($totalOrder) ?></a>
@@ -190,15 +190,25 @@ if (count($items)) { ?>
 
                             <?php } ?>
                             <td class="border px-1 py-2"><?= $item->item_note ?></td>
-                            <td class="border w-16">
-                                <div class="flex gap-1 justify-center items-center">
-
+                            <td class="border w-16 px-2">
+                                <div class="flex gap-1 justify-between items-center">
+                                    <?php
+                                    if (!isset($_GET['het'])) { ?>
+                                        <a href="nhap-kho.php?id=<?= $item->item_id ?>&sua" title="Sửa phụ liệu" class="btn-show-order w-5 transform hover:text-green-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </a>
+                                    <?php } ?>
                                     <?php
                                     if (!$item->order_id && $totalOrder != 0) { ?>
-                                        <button title="Chi tiết xuất" type="button" class="btn-show-order w-5 transform hover:text-info-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <button title="Chi tiết xuất" type="button" class="btn-show-order w-5 transform hover:text-blue-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
+                                            <svg class="img-show" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            <svg class="hidden img-hidden" viewBox="0 0 24 24" fill="none">
+                                                <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
                                         </button>
                                     <?php }
@@ -207,7 +217,7 @@ if (count($items)) { ?>
                                         <input type="hidden" name="delete-id" value="<?= $item->item_id ?>">
 
                                         <button type="submit" class="w-5 transform hover:text-red-500 transition hover:scale-110">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
                                         </button>
@@ -242,28 +252,30 @@ if (count($items)) { ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
 
-        // Sold out
-        const btnSoldOut = document.querySelectorAll(".btn-sold-out");
-        btnSoldOut.forEach(el => {
-            el.addEventListener("click", async function(e) {
-                const id = e.target.dataset.id;
-                console.log(id);
-            })
-        })
-
 
         // Order
         const btnShowOrder = document.querySelectorAll(".btn-show-order");
         btnShowOrder.forEach(el => {
             el.addEventListener("click", async function(e) {
                 const id = e.target.dataset.id;
-                const response = await fetch('services.php?get-order=' + id);
-                const data = await response.json();
-                if (data.itemsOrder.length) {
-                    el.disabled = true;
-                    let html = "";
-                    data.itemsOrder.forEach(item => {
-                        html += `<tr class="text-center text-sm bg-red-500 hover:bg-opacity-80 text-white dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-white transition">
+                if (el.classList.contains("show-on")) {
+                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.add("hidden"))
+                    el.classList.replace("show-on", "show-off");
+
+                    el.querySelector(".img-show").classList.remove("hidden")
+                    el.querySelector(".img-hidden").classList.add("hidden")
+                } else if (el.classList.contains("show-off")) {
+                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.remove("hidden"))
+                    el.classList.replace("show-off", "show-on");
+                    el.querySelector(".img-show").classList.add("hidden")
+                    el.querySelector(".img-hidden").classList.remove("hidden")
+                } else {
+                    const response = await fetch('services.php?get-order=' + id);
+                    const data = await response.json();
+                    if (data.itemsOrder.length) {
+                        let html = "";
+                        data.itemsOrder.forEach(item => {
+                            html += `<tr parent-id=${item.order_id} class="text-center text-sm bg-red-500 hover:bg-opacity-80 text-white dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-white transition">
                         <td class="border px-1 py-2">${item.item_date}</td>
                         <td class="border px-1 py-2">${item.item_container}</td>
                         <td class="border px-1 py-2">${item.item_customer}</td>
@@ -291,16 +303,20 @@ if (count($items)) { ?>
                                 <button type="submit" class="w-5 transform hover:text-red-900 transition hover:scale-125">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                        </svg>
+                                </svg>
                                 </button>
                             </form>
                         </td>
                     </tr>`;
-                    })
-                    const existingElement = el.closest("tr");
+                        })
+                        const existingElement = el.closest("tr");
+                        existingElement.insertAdjacentHTML('afterend', html);
+                        el.classList.add("show-on");
+                        el.querySelector(".img-show").classList.add("hidden")
+                        el.querySelector(".img-hidden").classList.remove("hidden")
+                    }
+                };
 
-                    existingElement.insertAdjacentHTML('afterend', html);
-                }
             })
         });
 
