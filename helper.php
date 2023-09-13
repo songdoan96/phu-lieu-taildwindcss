@@ -16,12 +16,12 @@ function getToUpper($field): string
     return strtoupper(htmlspecialchars(trim($_GET[$field])));
 }
 
-function formatDate($date)
+function formatDate($date): string
 {
     return date('d-m-Y', strtotime($date));
 }
 
-function formatNumber($number)
+function formatNumber($number): int|string
 {
     if (empty($number)) {
         return 0;

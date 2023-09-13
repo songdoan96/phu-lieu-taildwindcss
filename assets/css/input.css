@@ -11,3 +11,8 @@ input:disabled {
 svg {
   pointer-events: none;
 }
+
+a[href="https://www.freewebhostingarea.com"]
+{
+  display: none;
+}
