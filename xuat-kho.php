@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['order-item'])) {
         'item_qty' => post('qty'),
         'item_note' => post('note'),
         'item_date' => post('date'),
+        'number_group' => post('number_group'),
         'order_id' => $item->item_id,
     ]);
 
@@ -117,6 +118,12 @@ if (isset($item)) { ?>
                 <label for="date" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Ngày
                     xuất:</label>
                 <input required type="date" id="date" name="date"
+                       class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="flex flex-wrap items-center mb-2">
+                <label for="qty" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Tổ:</label>
+                <input required type="number" id="number_group" name="number_group"
+                       value="<?= $item ? $item->number_group : "" ?>"
                        class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
             <div class="flex flex-wrap items-center mb-2">

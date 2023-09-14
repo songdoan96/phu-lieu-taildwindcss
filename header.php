@@ -21,8 +21,8 @@
         <div class="flex md:order-2">
 
             <?php if (isset($_SESSION['user'])) { ?>
-                <form method="get" action="items.php" class="hidden md:block relative overflow-hidden">
-                    <select name="search-type" id="form-search-list" class="border border-second-500 rounded p-2">
+                <form method="get" action="items.php" class="hidden md:flex relative overflow-hidden">
+                    <select name="search-type" id="form-search-list" class="border text-sm rounded-tl-lg rounded-bl-lg border-second-500 ">
                         <option value="type">PHỤ LIỆU</option>
                         <option value="ma-hang">MÃ HÀNG</option>
                         <option value="po">PO</option>

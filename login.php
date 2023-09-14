@@ -39,13 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login-form'])) {
             <h2 class="mb-6 uppercase text-xl font-bold dark:text-white">Đăng nhập</h2>
             <div class="mb-6">
                 <label for="username" class="block mb-2 font-medium text-gray-900 dark:text-white">Tài khoản</label>
-                <input type="username" id="username" name="username"
+                <input type="username" id="username" name="username" value="admin"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                        required>
             </div>
             <div class="mb-6">
                 <label for="password" class="block mb-2 font-medium text-gray-900 dark:text-white">Mật khẩu</label>
-                <input type="password" id="password" name="password"
+                <input type="password" id="password" name="password" value="admin"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                        required>
             </div>
