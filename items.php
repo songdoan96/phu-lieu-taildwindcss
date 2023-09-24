@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['sold-out'])) {
     DB::table('items')->where('item_id', '=', post('sold-out'))->update([
         "item_sold_out" => 1
     ]);
-    $_SESSION['success'] = "Phụ liệu đã hết.";
+    $_SESSION['danger'] = "Phụ liệu đã hết.";
     header("Location: {$_SERVER['HTTP_REFERER']}");
     exit();
 }
@@ -96,22 +96,27 @@ if (count($_GET) === 5 && isset($_GET['ma-hang'], $_GET['type'])) {
         ->whereNull('order_id')
         ->where('item_sold_out', "=", 0)
         ->fetchAll();
-    $total = 0;
-    $totalSumOrder = 0;
-    $totalSumInventory = 0;
-    foreach ($items as $item) {
-        $total += $item->item_qty;
-        $totalOrders = DB::table('items')->where('order_id', '=', $item->item_id)->sum('item_qty');
-        $totalSumOrder += $totalOrders;
-        $totalSumInventory += $item->item_qty - $totalOrders;
+    if ($items) {
+        $total = 0;
+        $totalSumOrder = 0;
+        $totalSumInventory = 0;
+        foreach ($items as $item) {
+            $total += $item->item_qty;
+            $totalOrders = DB::table('items')->where('order_id', '=', $item->item_id)->sum('item_qty');
+            $totalSumOrder += $totalOrders;
+            $totalSumInventory += $item->item_qty - $totalOrders;
+        }
     }
 }
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
-if (!isset($items)) {
-    echo "<h2 class='p-4 text-center font-bold text-2xl dark:text-white mb-4'>PHỤ LIỆU TRỐNG</h2>";
+if (!count($items)) {
+    // $_SESSION['error'] = "Phụ liệu đã hết.";
+    // header("Location: {$_SERVER['HTTP_REFERER']}");
+    // exit();
+    echo "<h2 class='p-4 text-center font-bold text-2xl dark:text-white mb-4'>PHỤ LIỆU HẾT</h2>";
     // exit();
 }
-if (isset($items)) { ?>
+if (count($items)) { ?>
     <div class="p-4" id="items">
         <h2 class="text-center font-bold text-2xl dark:text-white mb-4"><?= $headerTitle ?></h2>
         <div class="relative overflow-x-auto md:overflow-x-hidden shadow-md ">
@@ -130,9 +135,9 @@ if (isset($items)) { ?>
                         <th class="border py-2 px-1">Size</th>
                         <th class="border py-2 px-1">Đơn vị</th>
                         <th class="border py-2 px-1">PO</th>
-                        <th class="border py-2 px-1">Nhập</th>
-                        <th class="border py-2 px-1">Xuất</th>
-                        <th class="border py-2 px-1">Tồn</th>
+                        <th class="border py-2 px-1 w-16">Nhập</th>
+                        <th class="border py-2 px-1 w-16">Xuất</th>
+                        <th class="border py-2 px-1 w-16">Tồn</th>
                         <th class="border py-2 px-1">Ghi chú</th>
                         <th class="border"></th>
 
@@ -142,10 +147,7 @@ if (isset($items)) { ?>
 
 
                     <?php foreach ($items as $item) {
-
                         $ordersItem = DB::table('items')->where('order_id', '=', $item->item_id)->fetchAll();
-
-
                         $totalOrder = DB::table('items')
                             ->where('order_id', '=', $item->item_id)
                             ->sum('item_qty');
@@ -222,7 +224,7 @@ if (isset($items)) { ?>
                                         </button>
                                     <?php }
                                     ?>
-                                    <button type="button" data-id="<?= $item->item_id ?>" class="btn-delete-item w-5 transform hover:text-red-500 transition hover:scale-110">
+                                    <button type="button" title="Xóa phụ liệu" data-id="<?= $item->item_id ?>" class="btn-delete-item w-5 transform hover:text-red-500 transition hover:scale-110">
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                         </svg>
@@ -233,7 +235,7 @@ if (isset($items)) { ?>
                         </tr>
                         <?php
                         foreach ($ordersItem as $orderItem) { ?>
-                            <tr parent-id="<?= $item->order_id ?>" class="text-center text-sm bg-red-500 hover:bg-opacity-80 text-white dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-white transition">
+                            <tr parent-id="<?= $item->item_id ?>" class="hidden text-center text-sm bg-red-500 hover:bg-opacity-80 text-white dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-white transition">
                                 <td class="border px-1 py-2"><?= $orderItem->item_date ?></td>
                                 <td class="border px-1 py-2"><?= $orderItem->item_container ?></td>
                                 <td class="border px-1 py-2"><?= $orderItem->item_customer ?></td>
@@ -262,19 +264,7 @@ if (isset($items)) { ?>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
                                         </button>
-                                        <form onsubmit="event.preventDefault();if (confirm('Có chắc muốn xóa?')) this.submit()" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-                                            <input type="hidden" name="delete-id" value="<?= $orderItem->item_id ?>">
-                                            <?php
-                                            if (isset($_GET['het'])) { ?>
-                                                <input type="hidden" name="redo-sold-out" value="<?= $orderItem->order_id ?>">
-                                            <?php }
-                                            ?>
-                                            <button type="submit" class="w-5 transform hover:text-red-900 transition hover:scale-125">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                </svg>
-                                            </button>
-                                        </form>
+
                                     </div>
                                 </td>
                             </tr>
@@ -301,12 +291,11 @@ if (isset($items)) { ?>
     <div id="modal-delete" class="fixed hidden top-0 left-0 right-0 z-50 p-4 overflow-hidden md:inset-0 h-screen bg-black/80 justify-center items-center">
         <div class="relative w-full max-w-md max-h-screen mx-auto">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-
                 <div class="p-6 text-center">
                     <svg class="mx-auto mb-4 text-red-400 w-12 h-12 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Bạn có chắc muốn xóa?</h3>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Xóa phụ liệu?</h3>
                     <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
                         <input type="hidden" name="delete-id" id="delete-id">
                         <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
@@ -325,12 +314,23 @@ if (isset($items)) { ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
 
-
         // Show Order
         const btnShowOrder = document.querySelectorAll(".btn-show-order");
         btnShowOrder.forEach(el => {
             el.addEventListener("click", async function(e) {
                 const id = e.target.dataset.id;
+                if (el.classList.contains("show-on")) {
+                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.add("hidden"))
+                    el.classList.replace("show-on", "show-off");
+                    el.querySelector(".img-show").classList.remove("hidden")
+                    el.querySelector(".img-hidden").classList.add("hidden")
+                } else {
+                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.remove("hidden"))
+                    el.classList.add("show-on");
+                    el.querySelector(".img-show").classList.add("hidden")
+                    el.querySelector(".img-hidden").classList.remove("hidden")
+                }
+                return;
                 if (el.classList.contains("show-on")) {
                     document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.add("hidden"))
                     el.classList.replace("show-on", "show-off");
@@ -347,52 +347,7 @@ if (isset($items)) { ?>
                     if (data.itemsOrder.length) {
                         let html = "";
                         data.itemsOrder.forEach(item => {
-                            html += `
-                            <tr parent-id=${item.order_id} class="text-center text-sm bg-red-500 hover:bg-opacity-80 text-white dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-white transition">
-                        <td class="border px-1 py-2">${item.item_date}</td>
-                        <td class="border px-1 py-2">${item.item_container}</td>
-                        <td class="border px-1 py-2">${item.item_customer}</td>
-                        <td class="border px-1 py-2">${item.item_style}</td>
-                        <td class="border px-1 py-2">${item.item_model}</td>
-                        <td class="border px-1 py-2">${item.item_type}</td>
-                        <td class="border px-1 py-2">${item.item_item}</td>
-                        <td class="border px-1 py-2">${item.item_color}</td>
-                        <td class="border px-1 py-2">${item.item_params}</td>
-                        <td class="border px-1 py-2">${item.item_size}</td>
-                        <td class="border px-1 py-2">${item.item_unit}</td>
-                        <td class="border px-1 py-2">${item.item_po}</td>
-                        <td class="border px-1 py-2"></td>
-                        <td class="border px-1 py-2">${item.item_qty}</td>
-                        <td class="border px-1 py-2"></td>
-                        <td class="border px-1 py-2">${item.item_note}</td>
-                        <td class="border px-1 py-2">
-                        <div class="flex gap-1 justify-between items-center">
-                        <a href="nhap-kho.php?id=${item.item_id}&sua" title="Sửa phụ liệu" class="btn-show-order w-5 transform hover:text-green-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                            </svg>
-                                        </a>
-                                        <button data-id="${item.item_id}" class="btn-delete-item w-5 transform hover:text-red-500 transition hover:scale-110">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                        </svg>
-                                    </button>
-                        <form onsubmit="event.preventDefault();if (confirm('Có chắc muốn xóa?')) this.submit()" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-                                <input type="hidden" name="delete-id" value="${item.item_id}">
-                                <?php
-                                if (isset($_GET['het'])) { ?>
-                                        <input type="hidden" name="redo-sold-out" value="${item.order_id}">
-                                    <?php }
-                                    ?>
-                                <button type="submit" class="w-5 transform hover:text-red-900 transition hover:scale-125">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                                </button>
-                            </form>
-                            </div>
-                        </td>
-                    </tr>`;
+                            html += `111`;
                         })
                         const existingElement = el.closest("tr");
                         existingElement.insertAdjacentHTML('afterend', html);
@@ -412,9 +367,18 @@ if (isset($items)) { ?>
             el.addEventListener("click", function() {
                 document.querySelector("#modal-delete").classList.replace("hidden", "flex");
                 document.querySelector("#form-delete #delete-id").value = this.dataset.id;
+                const isHetPage = `<?= isset($_GET['het']) ?>`
+                if (isHetPage) {
+                    const parentId = el.closest("tr").getAttribute("parent-id");
+                    const inputEl = document.createElement('input');
+                    inputEl.type = 'hidden';
+                    inputEl.name = 'redo-sold-out';
+                    inputEl.value = parentId;
+                    document.querySelector("#form-delete").append(inputEl);
+                }
             })
         })
-        document.querySelector("#btn-close-modal").addEventListener("click", function() {
+        document.querySelector("#btn-close-modal")?.addEventListener("click", function() {
             document.querySelector("#modal-delete").classList.replace("flex", "hidden");
         })
 
