@@ -7,16 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $page_title ?? "Phụ liệu" ?></title>
     <link rel="stylesheet" href="assets/css/main.css?v=<?= time() ?>">
-
-    <!-- <script src="assets/js/jquery.min.js"></script> -->
-
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-700">
     <nav class="shadow bg-white border-gray-200 dark:bg-gray-900">
-        <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="index.php" class="text-main-600 dark:text-white flex items-center uppercase text-2xl font-extrabold">Hòa
-                Thọ</a>
+        <div class="container flex flex-wrap items-center justify-between mx-auto px-4 py-1">
+            <a href="index.php" class="text-main-600 dark:text-white flex items-center uppercase text-2xl font-extrabold">
+                <img src="assets/img/logo.png" class="w-14" alt="">
+            </a>
             <div class="flex md:order-2">
 
                 <?php if (isset($_SESSION['user'])) { ?>

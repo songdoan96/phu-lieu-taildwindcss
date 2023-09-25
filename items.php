@@ -205,7 +205,7 @@ if (count($items)) { ?>
                                 <div class="flex gap-1 justify-between items-center">
                                     <?php
                                     if (!isset($_GET['het'])) { ?>
-                                        <a href="nhap-kho.php?id=<?= $item->item_id ?>&sua" title="Sửa phụ liệu" class="btn-show-order w-5 transform hover:text-green-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
+                                        <a href="sua.php?id=<?= $item->item_id ?>" title="Sửa phụ liệu" class="btn-show-order w-5 transform hover:text-green-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                             </svg>
@@ -254,7 +254,7 @@ if (count($items)) { ?>
                                 <td class="border px-1 py-2"><?= $orderItem->item_note ?></td>
                                 <td class="border px-1 py-2">
                                     <div class="flex gap-1 justify-between items-center">
-                                        <a href="nhap-kho.php?id=<?= $orderItem->item_id ?>&sua" title="Sửa phụ liệu" class="btn-show-order w-5 transform hover:text-green-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
+                                        <a href="sua.php?id=<?= $orderItem->item_id ?>" title="Sửa phụ liệu" class="btn-show-order w-5 transform hover:text-green-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                             </svg>

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("html").classList.add("dark");
   }
   // document.querySelector("html").classList.add(localStorage.getItem("dark-mode"));
-  document.querySelector("#btn-dark").addEventListener("click", function () {
+  document.querySelector("#btn-dark")?.addEventListener("click", function () {
     const darkMode = localStorage.getItem("dark-mode") === "dark" ? "light" : "dark";
     document.querySelector("html").classList = "";
     document.querySelector("html").classList.add(darkMode);
