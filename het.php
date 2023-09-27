@@ -1,115 +1,16 @@
 <?php
 require_once "init.php";
 include_once "header.php";
-$headerTitle = "QUẢN LÝ XUẤT NHẬP TỒN";
+$headerTitle = "PHỤ LIỆU HẾT";
 
-if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['delete-id'])) {
-    DB::table('items')->where('item_id', '=', post('delete-id'))->delete();
-    if (isset($_POST['redo-sold-out'])) {
-        DB::table('items')
-            ->where('item_id', '=', post('redo-sold-out'))
-            ->update([
-                'item_sold_out' => 0
-            ]);
-    }
-    $_SESSION['success'] = "Xóa thành công.";
-    header("Location: {$_SERVER['HTTP_REFERER']}");
-    exit();
-}
-if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['sold-out'])) {
-    DB::table('items')->where('item_id', '=', post('sold-out'))->update([
-        "item_sold_out" => 1
-    ]);
-    $_SESSION['danger'] = "Phụ liệu đã hết.";
-    header("Location: {$_SERVER['HTTP_REFERER']}");
-    exit();
-}
 
-if (count($_GET) === 1 && isset($_GET['ma-hang'])) {
-    $headerTitle = "QUẢN LÝ XUẤT NHẬP TỒN MÃ HÀNG " . $_GET['ma-hang'];
-
-    $items = DB::table('items')
-        ->where('item_style', '=', get('ma-hang'))
-        ->whereNull('order_id')
-        ->where('item_sold_out', "=", 0)
-        ->groupBy('item_type, item_color, item_size, item_params')
-        ->fetchAll();
-}
-if (count($_GET) === 1 && isset($_GET['khoang'])) {
-    $headerTitle = "QUẢN LÝ XUẤT NHẬP TỒN KHOANG " . $_GET['khoang'];
-
-    $items = DB::table('items')
-        ->where('item_container', '=', get('khoang'))
-        ->whereNull('order_id')
-        ->where('item_sold_out', "=", 0)
-        ->fetchAll();
-}
-// if (count($_GET) == 1 && isset($_GET['qlxn'])) {
-//     $items = DB::table('items')
-//         ->orderBy('created_at', 'desc')
-//         ->limit(50)
-//         ->fetchAll();
-// }
-if (count($_GET) === 1 && isset($_GET['het'])) {
-    $headerTitle = "PHỤ LIỆU HẾT";
-
-    $items = DB::table('items')
-        // ->orderBy('created_at', 'desc')
-        ->where('item_sold_out', '=', 1)
-        ->whereNull('order_id')
-        ->fetchAll();
-}
-if (count($_GET) === 2 && isset($_GET['search-type'], $_GET['search-value'])) {
-    if (get('search-type') === "ma-hang") {
-        $searchType = "item_style";
-    } else if (get('search-type') === "po") {
-        $searchType = "item_po";
-    } else {
-        $searchType = "item_type";
-    }
-    $items = DB::table('items')
-        ->where($searchType, 'LIKE', "%" . get('search-value') . "%")
-        ->where('item_sold_out', '=', 0)
-        ->whereNull('order_id')
-        ->groupBy('item_type, item_color, item_size, item_params')
-        ->fetchAll();
-}
-if (count($_GET) === 2 && isset($_GET['ma-hang'], $_GET['khoang'])) {
-    $headerTitle = "MÃ HÀNG " . $_GET['ma-hang'] . " - KHOANG " . $_GET['khoang'];
-
-    $items = DB::table('items')
-        ->where('item_style', '=', get('ma-hang'))
-        ->where('item_container', '=', get('khoang'))
-        ->whereNull('order_id')
-        ->where('item_sold_out', "=", 0)
-        ->orderBy('item_type')
-        ->fetchAll();
-}
-if (count($_GET) === 5 && isset($_GET['ma-hang'], $_GET['type'])) {
-    $headerTitle = "QL XUẤT NHẬP MÃ HÀNG " . $_GET['ma-hang'] . " - " . $_GET['type'];
-
-    $items = DB::table('items')
-        ->where('item_style', '=', get('ma-hang'))
-        ->where('item_type', '=', get('type'))
-        ->where('item_color', '=', get('color'))
-        ->where('item_size', '=', get('size'))
-        ->where('item_params', '=', get('params'))
-        ->whereNull('order_id')
-        ->where('item_sold_out', "=", 0)
-        ->fetchAll();
-    if ($items) {
-        $total = 0;
-        $totalSumOrder = 0;
-        $totalSumInventory = 0;
-        foreach ($items as $item) {
-            $total += $item->item_qty;
-            $totalOrders = DB::table('items')->where('order_id', '=', $item->item_id)->sum('item_qty');
-            $totalSumOrder += $totalOrders;
-            $totalSumInventory += $item->item_qty - $totalOrders;
-        }
-    }
-}
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
+
+$items = DB::table('items')
+    ->where('item_sold_out', '=', 1)
+    ->whereNull('order_id')
+    ->fetchAll();
+
 
 if (!count($items)) {
     echo "<h2 class='p-4 text-center font-bold text-2xl dark:text-white mb-4'>PHỤ LIỆU HẾT</h2>";
@@ -308,81 +209,6 @@ if (count($items)) { ?>
 <?php }
 ?>
 
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-        // Show Order
-        const btnShowOrder = document.querySelectorAll(".btn-show-order");
-        btnShowOrder.forEach(el => {
-            el.addEventListener("click", async function(e) {
-                const id = e.target.dataset.id;
-                if (el.classList.contains("show-on")) {
-                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.add("hidden"))
-                    el.classList.replace("show-on", "show-off");
-                    el.querySelector(".img-show").classList.remove("hidden")
-                    el.querySelector(".img-hidden").classList.add("hidden")
-                } else {
-                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.remove("hidden"))
-                    el.classList.add("show-on");
-                    el.querySelector(".img-show").classList.add("hidden")
-                    el.querySelector(".img-hidden").classList.remove("hidden")
-                }
-                return;
-                if (el.classList.contains("show-on")) {
-                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.add("hidden"))
-                    el.classList.replace("show-on", "show-off");
-                    el.querySelector(".img-show").classList.remove("hidden")
-                    el.querySelector(".img-hidden").classList.add("hidden")
-                } else if (el.classList.contains("show-off")) {
-                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.remove("hidden"))
-                    el.classList.replace("show-off", "show-on");
-                    el.querySelector(".img-show").classList.add("hidden")
-                    el.querySelector(".img-hidden").classList.remove("hidden")
-                } else {
-                    const response = await fetch('services.php?get-order=' + id);
-                    const data = await response.json();
-                    if (data.itemsOrder.length) {
-                        let html = "";
-                        data.itemsOrder.forEach(item => {
-                            html += `111`;
-                        })
-                        const existingElement = el.closest("tr");
-                        existingElement.insertAdjacentHTML('afterend', html);
-                        el.classList.add("show-on");
-                        el.querySelector(".img-show").classList.add("hidden")
-                        el.querySelector(".img-hidden").classList.remove("hidden")
-                    }
-                }
-
-
-            })
-        });
-
-        // Delete item
-        const btnDeleteItem = document.querySelectorAll(".btn-delete-item");
-        btnDeleteItem.forEach(el => {
-            el.addEventListener("click", function() {
-                document.querySelector("#modal-delete").classList.replace("hidden", "flex");
-                document.querySelector("#form-delete #delete-id").value = this.dataset.id;
-                const isHetPage = `<?= isset($_GET['het']) ?>`
-                if (isHetPage) {
-                    const parentId = el.closest("tr").getAttribute("parent-id");
-                    const inputEl = document.createElement('input');
-                    inputEl.type = 'hidden';
-                    inputEl.name = 'redo-sold-out';
-                    inputEl.value = parentId;
-                    document.querySelector("#form-delete").append(inputEl);
-                }
-            })
-        })
-        document.querySelector("#btn-close-modal")?.addEventListener("click", function() {
-            document.querySelector("#modal-delete").classList.replace("flex", "hidden");
-        })
-
-
-    })
-</script>
 
 <?php
 require_once "footer.php";

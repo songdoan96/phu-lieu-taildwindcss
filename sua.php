@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit-item'], $_POST['
 
 <div class="container mx-auto p-4">
     <form id="form-add-customer" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="bg-white max-w-xl mx-auto p-4 shadow-lg rounded-md">
-        <h2 class="text-second-600 text-center text-2xl font-bold uppercase mb-5">nhập kho</h2>
+        <h2 class="text-second-600 text-center text-2xl font-bold uppercase mb-5">Sửa phụ liệu</h2>
         <div class="flex flex-wrap items-center mb-2">
             <label for="customer" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Khách
                 hàng:</label>
@@ -101,18 +101,18 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit-item'], $_POST['
         <div class="flex flex-wrap items-center mb-2">
             <label for="qty" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Số
                 lượng:</label>
-            <?= $item->item_qty  ?>
+
             <input required type="number" id="qty" name="qty" value="<?= $item->item_qty  ?>" class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
         </div>
         <div class="flex flex-wrap items-center mb-2">
             <label for="date" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Ngày
                 xuất:</label>
-            <input required type="date" id="date" name="date" value="" class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input required type="date" id="date" name="date" value="<?= $item->item_date ?>" class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
         </div>
         <div class="flex flex-wrap items-center mb-2">
             <label for="note" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Ghi
                 chú:</label>
-            <input type="text" id="note" name="note" value="" class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input type="text" id="note" name="note" value="<?= $item->item_note ?>" class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
         </div>
         <input type="hidden" name="edit_id" value="<?= $item->item_id ?>">
         <div class="flex gap-2 justify-end mt-4">
