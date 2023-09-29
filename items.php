@@ -112,7 +112,7 @@ if (count($_GET) === 5 && isset($_GET['ma-hang'], $_GET['type'])) {
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
 if (!count($items)) {
-    echo "<h2 class='p-4 text-center font-bold text-2xl dark:text-white mb-4'>PHỤ LIỆU HẾT</h2>";
+    echo "<h2 class='p-4 text-center font-bold text-2xl dark:text-white mb-4'>PHỤ LIỆU ĐÃ HẾT</h2>";
 }
 if (count($items)) { ?>
     <div class="p-4" id="items">
@@ -247,7 +247,7 @@ if (count($items)) { ?>
                                 <td class="border px-1 py-2"><?= $orderItem->item_unit ?></td>
                                 <td class="border px-1 py-2"><?= $orderItem->item_po ?></td>
                                 <td class="border px-1 py-2"></td>
-                                <td class="border px-1 py-2"><?= $orderItem->item_qty ?></td>
+                                <td class="border px-1 py-2"><?= formatNumber($orderItem->item_qty) ?></td>
                                 <td class="border px-1 py-2"></td>
                                 <td class="border px-1 py-2"><?= $orderItem->item_note ?></td>
                                 <td class="border px-1 py-2">
@@ -309,80 +309,6 @@ if (count($items)) { ?>
 ?>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-        // Show Order
-        const btnShowOrder = document.querySelectorAll(".btn-show-order");
-        btnShowOrder.forEach(el => {
-            el.addEventListener("click", async function(e) {
-                const id = e.target.dataset.id;
-                if (el.classList.contains("show-on")) {
-                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.add("hidden"))
-                    el.classList.replace("show-on", "show-off");
-                    el.querySelector(".img-show").classList.remove("hidden")
-                    el.querySelector(".img-hidden").classList.add("hidden")
-                } else {
-                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.remove("hidden"))
-                    el.classList.add("show-on");
-                    el.querySelector(".img-show").classList.add("hidden")
-                    el.querySelector(".img-hidden").classList.remove("hidden")
-                }
-                return;
-                if (el.classList.contains("show-on")) {
-                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.add("hidden"))
-                    el.classList.replace("show-on", "show-off");
-                    el.querySelector(".img-show").classList.remove("hidden")
-                    el.querySelector(".img-hidden").classList.add("hidden")
-                } else if (el.classList.contains("show-off")) {
-                    document.querySelectorAll(`tr[parent-id='${id}']`).forEach(child => child.classList.remove("hidden"))
-                    el.classList.replace("show-off", "show-on");
-                    el.querySelector(".img-show").classList.add("hidden")
-                    el.querySelector(".img-hidden").classList.remove("hidden")
-                } else {
-                    const response = await fetch('services.php?get-order=' + id);
-                    const data = await response.json();
-                    if (data.itemsOrder.length) {
-                        let html = "";
-                        data.itemsOrder.forEach(item => {
-                            html += `111`;
-                        })
-                        const existingElement = el.closest("tr");
-                        existingElement.insertAdjacentHTML('afterend', html);
-                        el.classList.add("show-on");
-                        el.querySelector(".img-show").classList.add("hidden")
-                        el.querySelector(".img-hidden").classList.remove("hidden")
-                    }
-                }
-
-
-            })
-        });
-
-        // Delete item
-        const btnDeleteItem = document.querySelectorAll(".btn-delete-item");
-        btnDeleteItem.forEach(el => {
-            el.addEventListener("click", function() {
-                document.querySelector("#modal-delete").classList.replace("hidden", "flex");
-                document.querySelector("#form-delete #delete-id").value = this.dataset.id;
-                const isHetPage = `<?= isset($_GET['het']) ?>`
-                if (isHetPage) {
-                    const parentId = el.closest("tr").getAttribute("parent-id");
-                    const inputEl = document.createElement('input');
-                    inputEl.type = 'hidden';
-                    inputEl.name = 'redo-sold-out';
-                    inputEl.value = parentId;
-                    document.querySelector("#form-delete").append(inputEl);
-                }
-            })
-        })
-        document.querySelector("#btn-close-modal")?.addEventListener("click", function() {
-            document.querySelector("#modal-delete").classList.replace("flex", "hidden");
-        })
-
-
-    })
-</script>
 
 <?php
 require_once "footer.php";

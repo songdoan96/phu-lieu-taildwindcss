@@ -17,23 +17,24 @@ if (isset($_GET['id'])) {
     $inventory = $item->item_qty - $totalOrder;
 }
 if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit-item'], $_POST['edit_id'])) {
-    DB::table('items')->where('item_id', '=', post('edit_id'))->update([
-        'item_customer' => postToUpper('customer'),
-        'item_style' => postToUpper('style'),
-        'item_type' => postToUpper('type'),
-        'item_style' => postToUpper('style'),
-        'item_container' => postToUpper('container'),
-        'item_model' => postToUpper('model'),
-        'item_item' => postToUpper('item'),
-        'item_color' => postToUpper('color'),
-        'item_params' => postToUpper('params'),
-        'item_size' => postToUpper('size'),
-        'item_po' => postToUpper('po'),
-        'item_unit' => postToUpper('unit'),
-        'item_qty' => post('qty'),
-        'item_note' => post('note'),
-        'item_date' => post('date'),
-    ]);
+    DB::table('items')->where('item_id', '=', post('edit_id'))
+        ->update([
+            'item_customer' => postToUpper('customer'),
+            'item_style' => postToUpper('style'),
+            'item_type' => postToUpper('type'),
+            'item_style' => postToUpper('style'),
+            'item_container' => postToUpper('container'),
+            'item_model' => postToUpper('model'),
+            'item_item' => postToUpper('item'),
+            'item_color' => postToUpper('color'),
+            'item_params' => postToUpper('params'),
+            'item_size' => postToUpper('size'),
+            'item_po' => postToUpper('po'),
+            'item_unit' => postToUpper('unit'),
+            'item_qty' => post('qty'),
+            'item_note' => post('note'),
+            'item_date' => post('date'),
+        ]);
     $_SESSION['success'] = "Chỉnh sửa thành công.";
 
     if (isset($_SESSION['page'])) {
@@ -48,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit-item'], $_POST['
 
 <div class="container mx-auto p-4">
     <form id="form-add-customer" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="bg-white max-w-xl mx-auto p-4 shadow-lg rounded-md">
-        <h2 class="text-second-600 text-center text-2xl font-bold uppercase mb-5">Sửa phụ liệu</h2>
+        <h2 class="text-second-600 text-center text-2xl font-bold uppercase mb-5">Chỉnh sửa phụ liệu</h2>
         <div class="flex flex-wrap items-center mb-2">
             <label for="customer" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Khách
                 hàng:</label>
@@ -102,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit-item'], $_POST['
             <label for="qty" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Số
                 lượng:</label>
 
-            <input required type="number" id="qty" name="qty" value="<?= $item->item_qty  ?>" class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input <?= $item->order_id ? "disabled" : "required" ?> type="number" id="qty" name="qty" placeholder="Tối đa <?= $inventory . " " . $item->item_unit ?> " value="<?= $item->item_qty  ?>" class="w-full md:w-3/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
         </div>
         <div class="flex flex-wrap items-center mb-2">
             <label for="date" class="w-full mb-2 md:mb-0 md:w-1/4 block font-medium text-gray-900 dark:text-black">Ngày

@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
         el.querySelector(".img-show").classList.add("hidden");
         el.querySelector(".img-hidden").classList.remove("hidden");
       }
-      return;
     });
   });
 
