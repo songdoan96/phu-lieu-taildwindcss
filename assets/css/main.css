@@ -1334,6 +1334,10 @@ video {
   text-transform: uppercase;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .leading-normal {
   line-height: 1.5;
 }
@@ -1445,6 +1449,11 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-orange-600 {
+  --tw-text-opacity: 1;
+  color: rgb(234 88 12 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -1932,6 +1941,10 @@ a[href="https://www.freewebhostingarea.com"]
 
   .md\:w-auto {
     width: auto;
+  }
+
+  .md\:w-2\/4 {
+    width: 50%;
   }
 
   .md\:grid-cols-4 {
