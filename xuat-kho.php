@@ -99,7 +99,7 @@ if (isset($item)) { ?>
             </div>
             <div class="flex flex-wrap items-center mb-2">
                 <label for="qty" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Số
-                    lượng ( <span class="font-normal text-red-400"><?= 'Tối đa ' . formatNumber($inventory) . " " . $item->item_unit ?></span> ) : </label>
+                    lượng <span class="text-red-400"><?= '( Tối đa ' . formatNumber($inventory) . " " . $item->item_unit . " )" ?></span> : </label>
 
                 <input required type="number" step="0.01" min="0.01" max="<?= $inventory ?>" id="qty" name="qty" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>

@@ -114,8 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit-item'], $_POST['
                 <input type="hidden" name="qty" value="<?= $item->item_qty  ?>">
             <?php } else { ?>
                 <label for="qty" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Số
-                    lượng ( <span class="font-normal text-red-400"><?= 'Tối đa ' . formatNumber($inventory) . " " . $item->item_unit ?></span> ) : </label>
-                <input require type="number" id="qty" name="qty" placeholder="Tối đa <?= $inventory . " " . $item->item_unit ?> " value="<?= $item->item_qty  ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    lượng <span class="text-red-400"><?= '( Tối đa ' . formatNumber($inventory) . " " . $item->item_unit . " )" ?></span> : </label>
+                <input require type="number" id="qty" name="qty" max="<?= $inventory ?>" placeholder="Tối đa <?= $inventory . " " . $item->item_unit ?> " value="<?= $item->item_qty  ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
             <?php } ?>
         </div>
         <div class="flex flex-wrap items-center mb-2">

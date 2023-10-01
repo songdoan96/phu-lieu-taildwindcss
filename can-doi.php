@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 }
 if (!isset($_GET['style'])) { ?>
     <div class="container mx-auto p-4">
-        <h2 class="text-center font-bold text-2xl dark:text-white mb-4">CÂN ĐỐI PHỤ LIỆU</h2>
+        <h2 class="text-center font-bold text-2xl dark:text-white mb-4 text-orange-500">CÂN ĐỐI PHỤ LIỆU</h2>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
             <?php
@@ -116,7 +116,7 @@ if (isset($_GET['style'], $_GET['customer'], $_GET['type'])) { ?>
 <?php
 if (isset($_GET['style'], $_GET['customer'])) { ?>
     <div class="p-4">
-        <h2 class="text-center font-bold text-2xl dark:text-white mb-4 uppercase">cân đối mã
+        <h2 class="text-center font-bold text-2xl dark:text-white mb-4 uppercase text-orange-500">cân đối mã
             hàng <?= get('style') ?></h2>
         <div class="overflow-x-auto md:overflow-x-hidden shadow-md">
 

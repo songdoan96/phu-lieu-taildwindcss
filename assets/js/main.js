@@ -52,16 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
   btnDeleteItem.forEach((el) => {
     el.addEventListener("click", function () {
       document.querySelector("#modal-delete").classList.replace("hidden", "flex");
-      document.querySelector("#form-delete #delete-id").value = this.dataset.id;
-      const isHetPage = `<?= isset($_GET['het']) ?>`;
-      if (isHetPage) {
-        const parentId = el.closest("tr").getAttribute("parent-id");
-        const inputEl = document.createElement("input");
-        inputEl.type = "hidden";
-        inputEl.name = "redo-sold-out";
-        inputEl.value = parentId;
-        document.querySelector("#form-delete").append(inputEl);
-      }
+      document.querySelector("#btn-confirm-delete").addEventListener("click", function () {
+        el.closest("form").submit();
+      });
     });
   });
   document.querySelector("#btn-close-modal")?.addEventListener("click", function () {

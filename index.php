@@ -25,7 +25,7 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
 ?>
 <div class="p-4" id="items">
-    <h2 class="text-center font-bold text-2xl dark:text-white mb-4"><?= $headerTitle ?></h2>
+    <h2 class="text-center font-bold text-2xl dark:text-white mb-4 text-orange-500"><?= $headerTitle ?></h2>
     <div class="relative overflow-x-auto md:overflow-x-hidden bg-white shadow-lg rounded ">
         <table class="w-full border-collapse table-auto text-xs">
             <thead>

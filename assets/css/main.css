@@ -1334,10 +1334,6 @@ video {
   text-transform: uppercase;
 }
 
-.italic {
-  font-style: italic;
-}
-
 .leading-normal {
   line-height: 1.5;
 }
@@ -1451,9 +1447,14 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-orange-600 {
+.text-orange-500 {
   --tw-text-opacity: 1;
-  color: rgb(234 88 12 / var(--tw-text-opacity));
+  color: rgb(249 115 22 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -1931,20 +1932,12 @@ a[href="https://www.freewebhostingarea.com"]
     display: none;
   }
 
-  .md\:w-1\/4 {
-    width: 25%;
-  }
-
-  .md\:w-3\/4 {
-    width: 75%;
+  .md\:w-2\/4 {
+    width: 50%;
   }
 
   .md\:w-auto {
     width: auto;
-  }
-
-  .md\:w-2\/4 {
-    width: 50%;
   }
 
   .md\:grid-cols-4 {
