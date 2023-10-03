@@ -99,12 +99,14 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
                         <td class="border py-2 px-1"><?= $item->item_note ?></td>
                         <td title="<?= $item->item_id ?>" class="border w-16">
                             <div class="flex gap-1 justify-center items-center">
-                                <button data-id="<?= $item->item_id ?>" class="btn-delete-item w-5 transform hover:text-red-500 transition hover:scale-110">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                    </svg>
-                                </button>
-
+                                <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
+                                    <input type="hidden" name="delete-id" id="delete-id" value="<?= $item->item_id ?>">
+                                    <button type="button" title="Xóa phụ liệu" data-id="<?= $item->item_id ?>" class="btn-show-modal w-5 transform hover:text-red-500 transition hover:scale-110">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                        </svg>
+                                    </button>
+                                </form>
                             </div>
 
                         </td>
@@ -118,7 +120,7 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
 
 </div>
-<div id="modal-delete" class="fixed hidden top-0 left-0 right-0 z-50 p-4 overflow-hidden md:inset-0 h-screen bg-black/80 justify-center items-center">
+<div id="modal" class="fixed hidden top-0 left-0 right-0 z-50 p-4 overflow-hidden md:inset-0 h-screen bg-black/80 justify-center items-center">
     <div class="relative w-full max-w-md max-h-screen mx-auto">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="p-6 text-center">
@@ -126,30 +128,13 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Xóa phụ liệu?</h3>
-                <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
-                    <input type="hidden" name="delete-id" id="delete-id">
-                    <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                        Xóa
-                    </button>
-                </form>
+                <button type="button" id="btn-confirm-delete" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    Xóa
+                </button>
                 <button type="button" id="btn-close-modal" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Hủy</button>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const btnDeleteItem = document.querySelectorAll(".btn-delete-item");
-        btnDeleteItem.forEach(el => {
-            el.addEventListener("click", function() {
-                document.querySelector("#modal-delete").classList.replace("hidden", "flex");
-                document.querySelector("#form-delete #delete-id").value = this.dataset.id;
-            })
-        });
-        document.querySelector("#btn-close-modal")?.addEventListener("click", function() {
-            document.querySelector("#modal-delete").classList.replace("flex", "hidden");
-        });
-    })
-</script>
 <?php require_once "footer.php"; ?>

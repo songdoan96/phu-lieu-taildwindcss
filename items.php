@@ -225,7 +225,7 @@ if (count($items)) { ?>
                                     ?>
                                     <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
                                         <input type="hidden" name="delete-id" id="delete-id" value="<?= $item->item_id ?>">
-                                        <button type="button" title="Xóa phụ liệu" data-id="<?= $item->item_id ?>" class="btn-delete-item w-5 transform hover:text-red-500 transition hover:scale-110">
+                                        <button type="button" title="Xóa phụ liệu" data-id="<?= $item->item_id ?>" class="btn-show-modal w-5 transform hover:text-red-500 transition hover:scale-110">
                                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
@@ -264,7 +264,7 @@ if (count($items)) { ?>
                                         <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
                                             <input type="hidden" name="delete-id" id="delete-id" value="<?= $orderItem->item_id ?>">
                                             <input type="hidden" name="redo-sold-out" value="<?= $item->item_id ?>">
-                                            <button type="button" data-id="<?= $orderItem->item_id ?>" class="btn-delete-item w-5 transform hover:text-red-500 transition hover:scale-110">
+                                            <button type="button" data-id="<?= $orderItem->item_id ?>" class="btn-show-modal w-5 transform hover:text-red-500 transition hover:scale-110">
                                                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                 </svg>
@@ -293,7 +293,7 @@ if (count($items)) { ?>
 
 
     </div>
-    <div id="modal-delete" class="fixed hidden top-0 left-0 right-0 z-50 p-4 overflow-hidden md:inset-0 h-screen bg-black/80 justify-center items-center">
+    <div id="modal" class="fixed hidden top-0 left-0 right-0 z-50 p-4 overflow-hidden md:inset-0 h-screen bg-black/80 justify-center items-center">
         <div class="relative w-full max-w-md max-h-screen mx-auto">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <div class="p-6 text-center">

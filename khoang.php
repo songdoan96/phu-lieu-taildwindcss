@@ -1,5 +1,6 @@
 <?php
 require_once "init.php";
+$page_title = "Khoang";
 include_once "header.php";
 $containers = DB::table('items')
     ->select('item_container')

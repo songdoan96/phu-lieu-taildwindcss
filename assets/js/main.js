@@ -48,16 +48,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Delete item
-  const btnDeleteItem = document.querySelectorAll(".btn-delete-item");
+  const btnDeleteItem = document.querySelectorAll(".btn-show-modal");
   btnDeleteItem.forEach((el) => {
     el.addEventListener("click", function () {
-      document.querySelector("#modal-delete").classList.replace("hidden", "flex");
-      document.querySelector("#btn-confirm-delete").addEventListener("click", function () {
+      document.querySelector("#modal").classList.replace("hidden", "flex");
+      document.querySelector("#btn-confirm-delete")?.addEventListener("click", function () {
         el.closest("form").submit();
       });
     });
   });
   document.querySelector("#btn-close-modal")?.addEventListener("click", function () {
-    document.querySelector("#modal-delete").classList.replace("flex", "hidden");
+    this.closest("#modal").classList.replace("flex", "hidden");
+    // document.querySelector("#modal-delete").classList.replace("flex", "hidden");
   });
 });

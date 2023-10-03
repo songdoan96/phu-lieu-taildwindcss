@@ -1,5 +1,6 @@
 <?php
 require_once "init.php";
+$page_title = "Cân đối";
 include_once "header.php";
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $items = DB::table('items')

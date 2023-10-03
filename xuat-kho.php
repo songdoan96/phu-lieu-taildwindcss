@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['order-item'])) {
         'item_date' => post('date'),
         'number_group' => post('number_group'),
         'order_id' => $item->item_id,
+        'user_id' => post('user_id'),
     ]);
 
     $_SESSION['success'] = "Xuất kho thành công.";

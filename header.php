@@ -15,7 +15,7 @@
             <a href="index.php" class="text-main-600 dark:text-white flex items-center uppercase text-2xl font-extrabold">
                 <img src="assets/img/logo.png" class="w-14" alt="">
             </a>
-            <div class="flex md:order-2">
+            <div class="flex md:order-2 gap-2">
 
                 <?php if (isset($_SESSION['user'])) { ?>
                     <form method="get" action="items.php" class="hidden md:flex relative overflow-hidden">
@@ -43,12 +43,19 @@
 
                 <?php
                 if (!isset($_SESSION['user'])) { ?>
-                    <a class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="login.php">Đăng nhập</a>
+                    <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="login.php">Đăng nhập</a>
                 <?php } else { ?>
-                    <a class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="logout.php">Đăng xuất</a>
+                    <a href="nhap-kho.php" class="hover:-translate-y-0.5 w-10 h-w-10 bg-blue-700 hover:bg-blue-800 p-2 rounded flex items-center justify-center">
+                        <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6 inline-block">
+                            <path fill="#FFFFFF" d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+            C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+            C15.952,9,16,9.447,16,10z" />
+                        </svg>
+                    </a>
+                    <!-- <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="logout.php">Đăng xuất</a> -->
                 <?php }
                 ?>
-                <div class="flex items-center ml-2 md:ml-6 dark:border-slate-800">
+                <div class="flex items-center dark:border-slate-800">
                     <button type="button" id="btn-dark">
                         <span class="dark:hidden">
                             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
@@ -103,7 +110,10 @@
                                 đối</a>
 
                         </li>
+                        <li>
+                            <a href="cap-phat.php" class="py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 flex items-center">Cấp phát</a>
 
+                        </li>
 
                     </ul>
 
