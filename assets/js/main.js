@@ -1,14 +1,29 @@
+// Kiểm tra trạng thái đã lưu
+const isDark = localStorage.getItem("isDark") === "true";
+
+if (isDark) {
+  // document.body.classList.add("dark");
+  document.querySelector("html").classList.add("dark");
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-  if (localStorage.getItem("dark-mode") == "dark") {
-    document.querySelector("html").classList.add("dark");
-  }
-  // document.querySelector("html").classList.add(localStorage.getItem("dark-mode"));
-  document.querySelector("#btn-dark")?.addEventListener("click", function () {
-    const darkMode = localStorage.getItem("dark-mode") === "dark" ? "light" : "dark";
-    document.querySelector("html").classList = "";
-    document.querySelector("html").classList.add(darkMode);
-    localStorage.setItem("dark-mode", darkMode);
+  // if (localStorage.getItem("dark-mode") == "dark") {
+  //   document.querySelector("html").classList.add("dark");
+  // }
+  // // document.querySelector("html").classList.add(localStorage.getItem("dark-mode"));
+  // document.querySelector("#btn-dark")?.addEventListener("click", function () {
+  //   const darkMode = localStorage.getItem("dark-mode") === "dark" ? "light" : "dark";
+  //   document.querySelector("html").classList = "";
+  //   document.querySelector("html").classList.add(darkMode);
+  //   localStorage.setItem("dark-mode", darkMode);
+  // });
+  const darkModeToggle = document.getElementById("btn-dark");
+  darkModeToggle.addEventListener("click", () => {
+    document.querySelector("html").classList.toggle("dark");
+    const isDark = document.querySelector("html").classList.contains("dark");
+    localStorage.setItem("isDark", JSON.stringify(isDark));
   });
+
   if (document.querySelector("#toast")) {
     setTimeout(() => {
       document.querySelector("#toast")?.remove();

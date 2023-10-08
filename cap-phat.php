@@ -67,7 +67,7 @@ if (!empty($_GET['from_date'])) {
 $notes = $notes->orderBy('date', 'desc')->fetchAll();
 ?>
 <div id="items" class="p-4">
-    <h2 class="text-center font-bold text-2xl dark:text-white mb-4 text-orange-500">CẤP PHÁT THEO NGÀY</h2>
+    <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-orange-500">THEO DÕI CẤP PHÁT THEO NGÀY</h2>
     <div id="filter" class="flex justify-center">
         <form action="<?= $_SERVER['PHP_SELF'] ?>" method="get">
             <div class="flex gap-4">
@@ -99,133 +99,137 @@ $notes = $notes->orderBy('date', 'desc')->fetchAll();
             </div>
         </form>
     </div>
-    <div id="notes" class="mt-4">
+    <?php
+    if (count($notes)) { ?>
+        <div id="notes" class="mt-4">
 
-        <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-center  dark:text-gray-400 shadow-lg ">
-                <thead class="text-xs uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-2 py-3 border border-black">
-                            NGÀY
-                        </th>
-                        <th scope="col" class="px-2 py-3 border border-black">
-                            MÃ HÀNG
-                        </th>
-                        <th scope="col" class="px-2 py-3 border border-black">
-                            LOẠI
-                        </th>
-                        <th scope="col" class="px-2 py-3 border border-black">
-                            SIZE
-                        </th>
-                        <th scope="col" class="px-2 py-3 border border-black">
-                            MÀU
-                        </th>
-                        <th scope="col" class="px-2 py-3 border border-black">
-                            SÓ LƯỢNG
-                        </th>
-                        <th scope="col" class="px-2 py-3 border border-black">
-                            NGƯỜI NHẬN
-                        </th>
-                        <th scope="col" class="px-2 py-3 border border-black">
-                            GHI CHÚ
-                        </th>
-                        <th scope="col" class="px-2 py-3 border border-black">
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-center  dark:text-gray-400 shadow-lg ">
+                    <thead class="text-xs uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-2 py-3 border border-black">
+                                NGÀY
+                            </th>
+                            <th scope="col" class="px-2 py-3 border border-black">
+                                MÃ HÀNG
+                            </th>
+                            <th scope="col" class="px-2 py-3 border border-black">
+                                LOẠI
+                            </th>
+                            <th scope="col" class="px-2 py-3 border border-black">
+                                SIZE
+                            </th>
+                            <th scope="col" class="px-2 py-3 border border-black">
+                                MÀU
+                            </th>
+                            <th scope="col" class="px-2 py-3 border border-black">
+                                SÓ LƯỢNG
+                            </th>
+                            <th scope="col" class="px-2 py-3 border border-black">
+                                NGƯỜI NHẬN
+                            </th>
+                            <th scope="col" class="px-2 py-3 border border-black">
+                                GHI CHÚ
+                            </th>
+                            <th scope="col" class="px-2 py-3 border border-black">
 
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($notes as $note) { ?>
-                        <tr class="<?= $note->status == 1 ? "bg-green-200" : "bg-white" ?>">
-                            <td class="p-2 border border-black font-bold">
-                                <?= formatDate($note->date) ?>
-                            </td>
-                            <td class="p-2 border border-black">
-                                <?= $note->style ?>
-                            </td>
-                            <td class="p-2 border border-black">
-                                <?= $note->type ?>
-                            </td>
-                            <td class="p-2 border border-black">
-                                <?= $note->size ?>
-                            </td>
-                            <td class="p-2 border border-black">
-                                <?= $note->color ?>
-                            </td>
-                            <td class="p-2 border border-black">
-                                <?= $note->qty ?>
-                            </td>
-                            <td class="p-2 border border-black">
-                                <?= $note->user ?>
-                            </td>
-                            <td class="p-2 border border-black">
-                                <?= $note->note ?>
-                            </td>
-                            <td class="p-2 border border-black">
-                                <div class="flex justify-center gap-2">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($notes as $note) { ?>
+                            <tr class="<?= $note->status == 1 ? "bg-green-200" : "bg-white" ?>">
+                                <td class="p-2 border border-black font-bold">
+                                    <?= formatDate($note->date) ?>
+                                </td>
+                                <td class="p-2 border border-black">
+                                    <?= $note->style ?>
+                                </td>
+                                <td class="p-2 border border-black">
+                                    <?= $note->type ?>
+                                </td>
+                                <td class="p-2 border border-black">
+                                    <?= $note->size ?>
+                                </td>
+                                <td class="p-2 border border-black">
+                                    <?= $note->color ?>
+                                </td>
+                                <td class="p-2 border border-black">
+                                    <?= $note->qty ?>
+                                </td>
+                                <td class="p-2 border border-black">
+                                    <?= $note->user ?>
+                                </td>
+                                <td class="p-2 border border-black">
+                                    <?= $note->note ?>
+                                </td>
+                                <td class="p-2 border border-black">
+                                    <div class="flex justify-center gap-2 items-center">
 
-                                    <?php
-                                    if (!$note->status) { ?>
-                                        <form class="block" action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
-                                            <button type="submit" name="done" value="<?= $note->id ?>">
-                                                <svg class="w-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="48px" height="48px" fill-rule="nonzero">
-                                                    <g transform="translate(8.96,8.96) scale(0.93,0.93)">
-                                                        <g fill="#369e3a" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                            <path d="M-9.63441,265.63441v-275.26882h275.26882v275.26882z" id="bgRectangle"></path>
+                                        <?php
+                                        if (!$note->status) { ?>
+                                            <form class="inline-block" action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
+                                                <button type="submit" name="done" value="<?= $note->id ?>">
+                                                    <svg class="w-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" fill-rule="nonzero">
+                                                        <g transform="translate(8.96,8.96) scale(0.93,0.93)">
+                                                            <g fill="#369e3a" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                                                <path d="M-9.63441,265.63441v-275.26882h275.26882v275.26882z" id="bgRectangle"></path>
+                                                            </g>
+                                                            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                                                <g transform="scale(5.33333,5.33333)">
+                                                                    <path d="M40.6,12.1l-23.6,23.6l-9.6,-9.6l-2.8,2.9l12.4,12.3l26.4,-26.4z"></path>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                            <form class="inline-block" action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
+                                                <button type="submit" name="delete" value="<?= $note->id ?>">
+                                                    <svg class="w-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" fill-rule="nonzero">
+                                                        <g fill="#ff0000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                                            <path d="M0,256v-256h256v256z" id="bgRectangle"></path>
                                                         </g>
                                                         <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                                                             <g transform="scale(5.33333,5.33333)">
-                                                                <path d="M40.6,12.1l-23.6,23.6l-9.6,-9.6l-2.8,2.9l12.4,12.3l26.4,-26.4z"></path>
+                                                                <path transform="translate(24.00059,-9.94113) rotate(45.001)" d="M21.5,4.5h5.001v39h-5.001z"></path>
+                                                                <path transform="translate(57.94113,24.00474) rotate(135.008)" d="M21.5,4.5h5v39.001h-5z"></path>
                                                             </g>
                                                         </g>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                        <form class="block" action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
-                                            <button type="submit" name="delete" value="<?= $note->id ?>">
-                                                <svg class="w-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="48px" height="48px" fill-rule="nonzero">
-                                                    <g fill="#ff0000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                        <path d="M0,256v-256h256v256z" id="bgRectangle"></path>
-                                                    </g>
-                                                    <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                        <g transform="scale(5.33333,5.33333)">
-                                                            <path transform="translate(24.00059,-9.94113) rotate(45.001)" d="M21.5,4.5h5.001v39h-5.001z"></path>
-                                                            <path transform="translate(57.94113,24.00474) rotate(135.008)" d="M21.5,4.5h5v39.001h-5z"></path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        <?php } else { ?>
+
+                                            <form class="block" action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
+                                                <button type="submit" name="undo" value="<?= $note->id ?>">
+                                                    <svg class="w-8" viewBox="-102.4 -102.4 1228.80 1228.80" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                                                        <g stroke-width="0">
+                                                            <rect x="-102.4" y="-102.4" width="1228.80" height="1228.80" rx="73.728" fill="#38afd6" strokewidth="0" />
                                                         </g>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    <?php } else { ?>
+                                                        <g stroke-linecap="round" stroke-linejoin="round" />
+                                                        <g>
+                                                            <path d="M106.666667 384L405.333333 134.4v499.2z" fill="#ffffff" />
+                                                            <path d="M597.333333 298.666667H341.333333v170.666666h256c59.733333 0 106.666667 46.933333 106.666667 106.666667s-46.933333 106.666667-106.666667 106.666667h-64v170.666666h64c153.6 0 277.333333-123.733333 277.333334-277.333333s-123.733333-277.333333-277.333334-277.333333z" fill="#ffffff" />
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        <?php } ?>
+                                    </div>
 
-                                        <form class="block" action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
-                                            <button type="submit" name="undo" value="<?= $note->id ?>">
-                                                <svg class="w-8" viewBox="-102.4 -102.4 1228.80 1228.80" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
-                                                    <g stroke-width="0">
-                                                        <rect x="-102.4" y="-102.4" width="1228.80" height="1228.80" rx="73.728" fill="#38afd6" strokewidth="0" />
-                                                    </g>
-                                                    <g stroke-linecap="round" stroke-linejoin="round" />
-                                                    <g>
-                                                        <path d="M106.666667 384L405.333333 134.4v499.2z" fill="#ffffff" />
-                                                        <path d="M597.333333 298.666667H341.333333v170.666666h256c59.733333 0 106.666667 46.933333 106.666667 106.666667s-46.933333 106.666667-106.666667 106.666667h-64v170.666666h64c153.6 0 277.333333-123.733333 277.333334-277.333333s-123.733333-277.333333-277.333334-277.333333z" fill="#ffffff" />
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    <?php } ?>
-                                </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
 
-                            </td>
-                        </tr>
-                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
 
-                </tbody>
-            </table>
         </div>
+    <?php } ?>
 
-    </div>
 </div>
 <div class="fixed bottom-2 left-1/2 -translate-x-1/2 max-w-xs text-center z-40">
     <button type="button" title="Thêm" id="btn-add-note" class="btn-show-modal hover:translate-y-1 w-12 h-12 bg-blue-700 hover:bg-blue-800 p-2 rounded-full flex items-center justify-center">

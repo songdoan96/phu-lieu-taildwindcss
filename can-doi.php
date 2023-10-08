@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 }
 if (!isset($_GET['style'])) { ?>
     <div class="container mx-auto p-4">
-        <h2 class="text-center font-bold text-2xl dark:text-white mb-4 text-orange-500">CÂN ĐỐI PHỤ LIỆU</h2>
+        <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-orange-500">CÂN ĐỐI PHỤ LIỆU</h2>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
             <?php

@@ -22,102 +22,109 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['delete-id'])) {
 }
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
-
 ?>
 <div class="p-4" id="items">
-    <h2 class="text-center font-bold text-2xl dark:text-white mb-4 text-orange-500"><?= $headerTitle ?></h2>
-    <div class="relative overflow-x-auto md:overflow-x-hidden bg-white shadow-lg rounded ">
-        <table class="w-full border-collapse table-auto text-xs">
-            <thead>
-                <tr class="bg-gray-300 dark:bg-slate-900/70 dark:text-white text-gray-600 uppercase text-sm leading-normal text-center">
-                    <th class="py-2 border px-1 w-32" style="min-width: 100px;">Ngày</th>
-                    <th class="py-2 border px-1">Khoang</th>
-                    <th class="py-2 border px-1">Khách hàng</th>
-                    <th class="py-2 border px-1">Mã hàng</th>
-                    <th class="py-2 border px-1">Model</th>
-                    <th class="py-2 border px-1 w-36" style="min-width: 140px;">Loại</th>
-                    <th class="py-2 border px-1">Item</th>
-                    <th class="py-2 border px-1" style="min-width: 100px;">Màu</th>
-                    <th class="py-2 border px-1" style="min-width: 60px;">Thông số</th>
-                    <th class="py-2 border px-1" style="min-width: 100px;">Size</th>
-                    <th class="py-2 border px-1">Đơn vị</th>
-                    <th class="py-2 border px-1" style="min-width: 150px;">PO</th>
-                    <th class="py-2 border px-1 w-20" style="min-width: 70px;">Nhập</th>
-                    <th class="py-2 border px-1 w-20" style="min-width: 70px;">Xuất</th>
-                    <th class="py-2 border px-1 w-36">Ghi chú</th>
-                    <th class="py-2 border px-1 w-20" style="min-width: 40px;"></th>
+    <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-orange-500"><?= $headerTitle ?></h2>
+    <div id="table" class="w-full">
+        <div class="border-muted-200 dark:border-muted-700 border rounded-md overflow-hidden shadow-lg">
+            <div class="inline-block min-w-full align-middle">
+                <table class="divide-muted-200 dark:divide-muted-700 min-w-full table-fixed divide-y text-center">
+                    <thead>
+                        <tr>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Ngày</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Khoang</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Khách hàng</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Mã hàng</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Model</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4" style="min-width: 140px;">Loại</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Item</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Màu</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Thông số</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Size</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Đơn vị</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">PO</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Nhập</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Xuất</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Ghi chú</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-muted-200 dark:divide-muted-700 dark:bg-muted-800 divide-y bg-muted-50">
 
-                </tr>
-            </thead>
-            <tbody>
-
-
-                <?php foreach ($items as $item) { ?>
-                    <tr class="text-center text-sm odd:bg-gray-50 even:bg-gray-200 hover:bg-gray-300 dark:bg-gray-600  dark:hover:bg-gray-700 dark:text-white transition">
-                        <td class="border py-2 px-1 w-32"><?= formatDate($item->item_date) ?></td>
-                        <td class="border py-2 px-1"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a>
-                        </td>
-                        <td class="border py-2 px-1"><?= $item->item_customer ?></td>
-                        <td class="border py-2 px-1"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
-                        <td class="border py-2 px-1"><?= $item->item_model ?></td>
-                        <td class="border py-2 px-1"><a href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a>
-                        </td>
-                        <td class="border py-2 px-1"><?= $item->item_item ?></td>
-                        <td class="border py-2 px-1"><?= $item->item_color ?></td>
-                        <td class="border py-2 px-1"><?= $item->item_params ?></td>
-                        <td class="border py-2 px-1"><?= $item->item_size ?></td>
-                        <td class="border py-2 px-1"><?= $item->item_unit ?></td>
-                        <td class="border py-2 px-1"><?= $item->item_po ?></td>
-                        <td class="border">
-                            <?php
-                            if (!$item->order_id) { ?>
-                                <a class="bg-green-700 text-green-200 underline-offset-2 block py-2 px-1" href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a>
-                            <?php } else { ?>
-                                <a class="no-underline flex justify-center text-green-600 dark:text-green-300 transition hover:scale-125" href="nhap-kho.php?id=<?= $item->item_id ?>">
-                                    <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
-                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                    </svg>
-                                </a>
+                        <?php foreach ($items as $item) { ?>
+                            <tr class="hover:bg-muted-100 dark:hover:bg-muted-900 transition-colors duration-200">
 
 
-                            <?php } ?>
-                        </td>
-                        <td class="border">
-                            <?php
-                            if ($item->order_id) { ?>
-                                <a class="bg-red-700 text-red-200 underline-offset-2 block py-2 px-1" href="xuat-kho.php?id=<?= $item->order_id ?>"><?= formatNumber($item->item_qty) ?></a>
-                            <?php } else { ?>
-                                <a class="no-underline flex justify-center text-red-600 dark:text-red-300 transition hover:scale-125" href="xuat-kho.php?id=<?= $item->item_id ?>">
-                                    <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
-                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                    </svg>
-                                </a>
-                            <?php } ?>
-                        </td>
-                        <td class="border py-2 px-1"><?= $item->item_note ?></td>
-                        <td title="<?= $item->item_id ?>" class="border w-16">
-                            <div class="flex gap-1 justify-center items-center">
-                                <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
-                                    <input type="hidden" name="delete-id" id="delete-id" value="<?= $item->item_id ?>">
-                                    <button type="button" title="Xóa phụ liệu" data-id="<?= $item->item_id ?>" class="btn-show-modal w-5 transform hover:text-red-500 transition hover:scale-110">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                        </svg>
-                                    </button>
-                                </form>
-                            </div>
 
-                        </td>
-                    </tr>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= formatDate($item->item_date) ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_customer ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_model ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_item ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_color ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_params ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_size ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_unit ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_po ?></td>
 
-                <?php } ?>
 
-            </tbody>
-        </table>
+
+                                <?php
+                                if (!$item->order_id) { ?>
+                                    <td class="text-sm border-r dark:border-muted-700  dark:text-white bg-green-700 text-green-200">
+                                        <a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a>
+                                    </td>
+                                <?php } else { ?>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white">
+                                        <a class="no-underline flex justify-center text-green-600 dark:text-green-300 transition hover:scale-125" href="nhap-kho.php?id=<?= $item->item_id ?>">
+                                            <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+
+                                <?php } ?>
+                                <?php
+                                if ($item->order_id) { ?>
+                                    <td class="text-sm border-r dark:border-muted-700  dark:text-white bg-red-700 text-red-200">
+                                        <a href="xuat-kho.php?id=<?= $item->order_id ?>"><?= formatNumber($item->item_qty) ?></a>
+                                    </td>
+                                <?php } else { ?>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white">
+                                        <a class="no-underline flex justify-center text-red-600 dark:text-red-300 transition hover:scale-125" href="xuat-kho.php?id=<?= $item->item_id ?>">
+                                            <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                <?php } ?>
+                                </td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_note ?></td>
+                                <td title="<?= $item->item_id ?>" class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1">
+                                    <div class="flex gap-1 justify-center items-center px-2">
+                                        <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
+                                            <input type="hidden" name="delete-id" id="delete-id" value="<?= $item->item_id ?>">
+                                            <button type="button" title="Xóa phụ liệu" data-id="<?= $item->item_id ?>" class="btn-show-modal w-5 transform hover:text-red-500 transition hover:scale-110">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        <?php } ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
 
 </div>
 <div id="modal" class="fixed hidden top-0 left-0 right-0 z-50 p-4 overflow-hidden md:inset-0 h-screen bg-black/80 justify-center items-center">

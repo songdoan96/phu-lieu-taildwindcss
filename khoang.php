@@ -9,7 +9,7 @@ $containers = DB::table('items')
 ?>
 
 <div class="container mx-auto p-4">
-    <h2 class="text-center font-bold text-2xl dark:text-white mb-4 text-orange-500">DANH SÁCH KHOANG</h2>
+    <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-orange-500">DANH SÁCH KHOANG</h2>
     <div class="grid grid-cols-2 md:grid-cols-8 gap-3 md:gap-6">
         <?php foreach ($containers as $container) { ?>
             <div class="w-full relative text-center rounded-lg overflow-hidden uppercase max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">

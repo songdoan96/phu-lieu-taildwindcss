@@ -25,7 +25,7 @@ class  DB
             $servername = "localhost";
             $username = "root";
             $password = "";
-            $dbname = "hoa-tho";
+            $dbname = "phu-lieu";
             $this->conn = new PDO("mysql:host=$servername;port=3306;dbname=$dbname;charset=utf8mb4", $username, $password, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,

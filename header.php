@@ -6,26 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $page_title ?? "Phụ liệu" ?></title>
+    <script src="assets/js/main.js?v=<?= time() ?>"></script>
+
     <link rel="stylesheet" href="assets/css/main.css?v=<?= time() ?>">
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-700">
-    <nav class="shadow bg-white border-gray-200 dark:bg-gray-900">
+<body class="bg-muted-100 dark:bg-muted-900">
+    <!-- <div class="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white">
+        <div class="h-16 w-16 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent"></div>
+    </div> -->
+    <nav class="shadow dark:shadow-muted-800 border-gray-200">
         <div class="container flex flex-wrap items-center justify-between mx-auto px-4 py-1">
-            <a href="index.php" class="text-main-600 dark:text-white flex items-center uppercase text-2xl font-extrabold">
-                <img src="assets/img/logo.png" class="w-14" alt="">
+            <a id="logo" href="index.php" class="text-main-600 dark:text-white flex items-center uppercase text-2xl font-extrabold">
+                <img src="assets/img/logo-1.png" class="w-14" alt="Logo">
             </a>
-            <div class="flex md:order-2 gap-2">
+            <div class="flex md:order-2 gap-2 h-10" id="nav-right">
 
                 <?php if (isset($_SESSION['user'])) { ?>
-                    <form method="get" action="items.php" class="hidden md:flex relative overflow-hidden">
-                        <select name="search-type" id="form-search-list" class="border text-sm rounded-tl-lg rounded-bl-lg border-second-500 ">
+                    <form method="get" action="items.php" class="hidden md:block relative overflow-hidden w-72 h-full rounded text-black dark:text-muted-100">
+                        <select name="search-type" id="form-search-list" class="absolute left-0 z-20 h-full border-r border-muted-300 dark:border-muted-950 outline-none px-1 text-sm bg-muted-200 dark:bg-muted-700 dark:hover:bg-muted-600">
                             <option value="type">PHỤ LIỆU</option>
                             <option value="ma-hang">MÃ HÀNG</option>
                             <option value="po">PO</option>
                         </select>
-                        <input type="text" name="search-value" id="search-input" class="h-full rounded-r-lg border p-2" placeholder="Tìm kiếm...">
-                        <button type="submit" class="absolute right-0 bg-blue-600 text-white h-full px-2 rounded-r-lg">
+                        <input type="text" name="search-value" id="search-input" class="absolute z-10 pl-28 outline-none w-full h-full px-2 py-1.5 bg-muted-200 dark:bg-muted-700 dark:hover:bg-muted-600" placeholder="Tìm kiếm...">
+                        <button type="submit" class="absolute right-0 z-20 py-2 px-3 border-l border-muted-300 dark:border-muted-950 dark:bg-muted-700 dark:hover:bg-muted-600 h-full ">
                             <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
                             </svg>
@@ -93,28 +98,23 @@
                             </button>
                         </form>
                     </div>
-                    <ul id="main-nav" class="hidden uppercase md:flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <!-- <ul id="main-nav" class="hidden uppercase md:flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-400 md:dark:bg-gray-400 dark:border-gray-700 "> -->
+                    <ul id="main-nav" class="flex p-4 items-center gap-4 hidden uppercase flex-col md:flex md:flex-row md:gap-8 text-black dark:text-muted-200 font-semibold">
                         <li>
-                            <a href="khoang.php" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Khoang</a>
+                            <a href="khoang.php" class="" aria-current="page">Khoang</a>
                         </li>
-
-                        <!-- <li>
-                        <a href="items.php?qlxn" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">QL xuất nhập</a>
-                    </li> -->
                         <li>
-                            <a href="het.php" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">pl
+                            <a href="het.php" class="">pl
                                 hết</a>
                         </li>
                         <li>
-                            <a href="can-doi.php" class="py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 flex items-center">cân
+                            <a href="can-doi.php" class="">cân
                                 đối</a>
 
                         </li>
                         <li>
-                            <a href="cap-phat.php" class="py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 flex items-center">Cấp phát</a>
-
+                            <a href="cap-phat.php" class="">Cấp phát</a>
                         </li>
-
                     </ul>
 
                 </div>
