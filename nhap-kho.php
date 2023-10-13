@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add-item'])) {
         </div>
         <div class="flex flex-wrap items-center mb-2">
             <label for="date" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Ngày
-                xuất:</label>
+                nhập:</label>
             <input required type="date" id="date" name="date" value="<?= isset($item) && isset($_GET['sua']) ? $item->item_date : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">

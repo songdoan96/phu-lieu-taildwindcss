@@ -31,7 +31,7 @@ if (!isset($_GET['style'])) { ?>
             $items = DB::table('items')->select("item_customer")->distinct()->fetchAll();
             foreach ($items as $item) { ?>
                 <div class="w-full relative text-center rounded-tl-3xl rounded-br-3xl overflow-hidden uppercase max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
-                    <h5 class="p-4 text-base font-bold bg-main-500 dark:bg-gray-500 text-white md:text-2xl dark:text-white">
+                    <h5 class="p-4 text-base font-bold bg-teal-600 dark:bg-gray-500 text-white md:text-2xl dark:text-white">
                         <?= $item->item_customer ?>
                     </h5>
                     <?php
