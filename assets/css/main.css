@@ -2340,6 +2340,10 @@ input[readonly] {
     padding: 0px;
   }
 
+  .md\:p-4 {
+    padding: 1rem;
+  }
+
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;

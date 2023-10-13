@@ -117,7 +117,7 @@ if (!count($items)) {
     echo "<h2 class='p-4 text-center font-bold text-2xl dark:text-white mb-4 text-red-500'>PHỤ LIỆU ĐÃ HẾT</h2>";
 }
 if (count($items)) { ?>
-    <div class="p-4" id="items">
+    <div class="px-2 py-4 md:p-4" id="items">
         <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-teal-600"><?= $headerTitle ?></h2>
         <div id="table" class="w-full">
             <div class="border-muted-200 dark:border-muted-700 border rounded-md overflow-hidden shadow-lg">
