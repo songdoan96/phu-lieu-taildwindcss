@@ -65,88 +65,78 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add-item'])) {
 ?>
 
 <div class="container mx-auto p-4">
-    <form id="form-add-customer" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="bg-white max-w-xl mx-auto p-4 shadow-lg rounded-md">
-        <h2 class="text-second-600 text-center text-2xl font-bold uppercase mb-5">nhập kho</h2>
+    <form id="form-add-customer" method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="bg-muted-200 dark:bg-muted-600 max-w-xl mx-auto p-4 shadow-lg rounded-md">
+        <h2 class="text-muted-700 dark:text-muted-200 text-center text-2xl font-bold uppercase mb-5">nhập kho</h2>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="customer" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Khách
+            <label for="customer" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Khách
                 hàng:</label>
-            <input type="text" id="customer" name="customer" value="<?= isset($item) ? $item->item_customer : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input type="text" id="customer" name="customer" value="<?= isset($item) ? $item->item_customer : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="style" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Mã
+            <label for="style" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Mã
                 hàng:</label>
-            <input type="text" id="style" name="style" value="<?= isset($item) ? $item->item_style : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input type="text" id="style" name="style" value="<?= isset($item) ? $item->item_style : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="type" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Loại:</label>
-            <input type="text" id="type" name="type" value="<?= isset($item) ? $item->item_type : "" ?>" class="uppercase w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <label for="type" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Loại:</label>
+            <input type="text" id="type" name="type" value="<?= isset($item) ? $item->item_type : "" ?>" class="uppercase w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="container" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Khoang:</label>
-            <input required type="text" id="container" name="container" value="<?= isset($item) ? $item->item_container : "" ?>" class="uppercase w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <label for="container" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Khoang:</label>
+            <input required type="text" id="container" name="container" value="<?= isset($item) ? $item->item_container : "" ?>" class="uppercase w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
 
         <div class="flex flex-wrap items-center mb-2">
-            <label for="model" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Model:</label>
-            <input type="text" id="model" name="model" value="<?= isset($item) ? $item->item_model : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <label for="model" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Model:</label>
+            <input type="text" id="model" name="model" value="<?= isset($item) ? $item->item_model : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="item" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Item:</label>
-            <input type="text" id="item" name="item" value="<?= isset($item) ? $item->item_item : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <label for="item" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Item:</label>
+            <input type="text" id="item" name="item" value="<?= isset($item) ? $item->item_item : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="color" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Màu:</label>
-            <input type="text" id="color" name="color" value="<?= isset($item) ? $item->item_color : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <label for="color" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Màu:</label>
+            <input type="text" id="color" name="color" value="<?= isset($item) ? $item->item_color : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="params" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Thông
+            <label for="params" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Thông
                 số:</label>
-            <input type="text" id="params" name="params" value="<?= isset($item) ? $item->item_params : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input type="text" id="params" name="params" value="<?= isset($item) ? $item->item_params : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="size" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Size:</label>
-            <input type="text" id="size" name="size" value="<?= isset($item) ? $item->item_size : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <label for="size" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Size:</label>
+            <input type="text" id="size" name="size" value="<?= isset($item) ? $item->item_size : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="po" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">PO:</label>
-            <input type="text" id="po" name="po" value="<?= isset($item) ? $item->item_po : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <label for="po" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">PO:</label>
+            <input type="text" id="po" name="po" value="<?= isset($item) ? $item->item_po : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="unit" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Đơn
+            <label for="unit" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Đơn
                 vị:</label>
-            <input type="text" id="unit" name="unit" value="<?= isset($item) ? $item->item_unit : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input type="text" id="unit" name="unit" value="<?= isset($item) ? $item->item_unit : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="qty" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Số
+            <label for="qty" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Số
                 lượng:</label>
-            <input required type="number" step="0.01" min="1" id="qty" name="qty" value="<?= isset($item) && isset($_GET['sua']) ? $item->item_qty : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input required type="number" step="0.01" min="1" id="qty" name="qty" value="<?= isset($item) && isset($_GET['sua']) ? $item->item_qty : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="date" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Ngày
+            <label for="date" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Ngày
                 xuất:</label>
-            <input required type="date" id="date" name="date" value="<?= isset($item) && isset($_GET['sua']) ? $item->item_date : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input required type="date" id="date" name="date" value="<?= isset($item) && isset($_GET['sua']) ? $item->item_date : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
         <div class="flex flex-wrap items-center mb-2">
-            <label for="note" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-gray-900 dark:text-black">Ghi
+            <label for="note" class="w-full mb-2 md:mb-0 md:w-2/4 block font-medium text-muted-700 dark:text-muted-300">Ghi
                 chú:</label>
-            <input type="text" id="note" name="note" value="<?= isset($item) && isset($_GET['sua']) ? $item->item_note : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <input type="text" id="note" name="note" value="<?= isset($item) && isset($_GET['sua']) ? $item->item_note : "" ?>" class="w-full md:w-2/4 rounded bg-gray-50 focus:outline-muted-400 dark:focus:outline-muted-700 text-gray-900 text-sm block p-2 dark:bg-muted-700 dark:text-muted-300">
         </div>
-        <?php
-        if (isset($_GET['sua'])) { ?>
-            <input type="hidden" name="edit_id" value="<?= $item->item_id ?>">
-            <div class="flex gap-2 justify-end mt-4">
-                <button type="submit" name="edit-item" class="flex  px-5 py-2.5 text-sm font-medium text-center text-white bg-second-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-second-800">
-                    Sửa
-                </button>
-            </div>
-        <?php } else { ?>
-            <div class="flex gap-2 justify-end mt-4">
-                <button type="submit" name="add-item" class="flex  px-5 py-2.5 text-sm font-medium text-center text-white bg-second-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-second-800">
-                    NHẬP
-                </button>
-            </div>
-        <?php }
-        ?>
+
+        <div class="flex gap-2 justify-end mt-4">
+            <button type="submit" name="add-item" class="flex uppercase px-5 py-2.5 text-sm font-medium text-center text-muted-50 bg-teal-600 hover:bg-teal-700 dark:bg-muted-700 dark:hover:bg-muted-800 dark:text-muted-200 rounded-lg">
+                NHẬP kho
+            </button>
+        </div>
 
     </form>
 </div>

@@ -118,10 +118,10 @@ if (!count($items)) {
 }
 if (count($items)) { ?>
     <div class="p-4" id="items">
-        <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-orange-500"><?= $headerTitle ?></h2>
+        <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-teal-600"><?= $headerTitle ?></h2>
         <div id="table" class="w-full">
             <div class="border-muted-200 dark:border-muted-700 border rounded-md overflow-hidden shadow-lg">
-                <div class="inline-block min-w-full align-middle">
+                <div class="min-w-full align-middle overflow-x-auto">
                     <table class="divide-muted-200 dark:divide-muted-700 min-w-full table-fixed divide-y text-center">
                         <thead>
                             <tr>
@@ -155,51 +155,45 @@ if (count($items)) { ?>
                             ?>
                                 <tr item-id="<?= $item->item_id ?>" class="hover:bg-muted-100 dark:hover:bg-muted-900 transition-colors duration-200">
 
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= formatDate($item->item_date) ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_customer ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_model ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1 whitespace-nowrap"><a title="<?= $item->item_id ?>" href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_item ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_color ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_params ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_size ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_unit ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1 whitespace-nowrap"><?= $item->item_po ?></td>
-                                    <?php
-                                    if ($item->order_id) { ?>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1 dark:bg-red-700 "><?= formatNumber($item->item_qty) ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"></td>
-                                    <?php } else { ?>
-                                        <td class="text-sm border-r dark:border-muted-700 text-white bg-emerald-700 py-2 px-1"><a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a>
-                                        </td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-white bg-rose-700 py-2 px-1">
-                                            <?php
-                                            if ($inventory != 0) { ?>
-                                                <a href="xuat-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($totalOrder) ?></a>
-                                            <?php } else { ?>
-                                                <?= formatNumber($totalOrder) ?>
-                                            <?php } ?>
-                                        </td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-white bg-sky-700 py-2 px-1">
-                                            <?php
-                                            if ($inventory == 0) { ?>
-                                                <form class="inline-block ml-1" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-                                                    <input type="hidden" value="<?= $item->item_id ?>" name="sold-out">
-                                                    <button class="bg-yellow-300 text-red-700 font-bold p-1 rounded uppercase" type="submit">
-                                                        Hết
-                                                    </button>
-                                                </form>
-                                            <?php } else {
-                                                echo formatNumber($inventory);
-                                            } ?>
-                                        </td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= formatDate($item->item_date) ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_customer ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_model ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><a title="<?= $item->item_id ?>" href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_item ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_color ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_params ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_size ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_unit ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_po ?></td>
 
-                                    <?php } ?>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_note ?></td>
-                                    <td class="text-sm text-muted-500 dark:text-white py-2 px-1">
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-200 bg-emerald-700 py-2 px-1 whitespace-nowrap"><a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a>
+                                    </td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-200 bg-rose-700 py-2 px-1 whitespace-nowrap">
+                                        <?php
+                                        if ($inventory != 0) { ?>
+                                            <a href="xuat-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($totalOrder) ?></a>
+                                        <?php } else { ?>
+                                            <?= formatNumber($totalOrder) ?>
+                                        <?php } ?>
+                                    </td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-200 bg-sky-700 py-2 px-1 whitespace-nowrap">
+                                        <?php
+                                        if ($inventory == 0) { ?>
+                                            <form class="inline-block ml-1" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+                                                <input type="hidden" value="<?= $item->item_id ?>" name="sold-out">
+                                                <button class="bg-yellow-300 text-red-700 font-bold p-1 rounded uppercase" type="submit">
+                                                    Hết
+                                                </button>
+                                            </form>
+                                        <?php } else {
+                                            echo formatNumber($inventory);
+                                        } ?>
+                                    </td>
+
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_note ?></td>
+                                    <td class="text-sm text-muted-700 dark:text-muted-200 py-2 px-1">
                                         <div class="flex gap-1 justify-end items-center">
                                             <?php
                                             if (!$item->order_id && $totalOrder != 0) { ?>
@@ -234,23 +228,23 @@ if (count($items)) { ?>
                                 <?php
                                 foreach ($ordersItem as $orderItem) { ?>
                                     <tr item-id="<?= $orderItem->item_id ?>" parent-id="<?= $item->item_id ?>" class="hidden text-center bg-red-300 hover:bg-red-300/80 transition-colors duration-200">
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_date ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_container ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_customer ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_style ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_model ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1" title="<?= $orderItem->item_id ?>"><?= $orderItem->item_type ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_item ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_color ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_params ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_size ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_unit ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_po ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= formatNumber($orderItem->item_qty) ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_note ?></td>
-                                        <td class="text-sm text-muted-600 py-2 px-1">
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_date ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_container ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_customer ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_style ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_model ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1" title="<?= $orderItem->item_id ?>"><?= $orderItem->item_type ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_item ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_color ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_params ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_size ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_unit ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_po ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= formatNumber($orderItem->item_qty) ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_note ?></td>
+                                        <td class="text-sm text-muted-700 py-2 px-1">
                                             <div class="flex gap-1 justify-end items-center">
                                                 <a href="sua.php?id=<?= $orderItem->item_id ?>" title="Sửa phụ liệu" class="btn-show-order w-5 transform hover:text-green-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -276,10 +270,10 @@ if (count($items)) { ?>
                             <?php
                             if (isset($total)) { ?>
                                 <tr class="">
-                                    <td colspan="12" class="p-2 pr-12 text-muted-500 dark:text-muted-200 uppercase font-bold text-lg text-right">Tổng :</td>
-                                    <td><span class="bg-emerald-100 text-emerald-700 p-1 px-2 text-sm font-bold rounded-full"><?= formatNumber($total) ?></span></td>
-                                    <td><span class="bg-rose-100 text-rose-700 p-1 px-2 text-sm font-bold rounded-full"><?= formatNumber($totalSumOrder) ?></span></td>
-                                    <td><span class="bg-sky-100 text-sky-700 p-1 px-2 text-sm font-bold rounded-full"><?= formatNumber($totalSumInventory) ?></span></td>
+                                    <td colspan="12" class="whitespace-nowrap p-2 pr-12 text-muted-500 dark:text-muted-200 uppercase font-bold text-lg text-right">Tổng :</td>
+                                    <td><span class="whitespace-nowrap bg-emerald-100 text-emerald-700 p-1 px-2 text-sm font-bold rounded-full"><?= formatNumber($total) ?></span></td>
+                                    <td><span class="whitespace-nowrap bg-rose-100 text-rose-700 p-1 px-2 text-sm font-bold rounded-full"><?= formatNumber($totalSumOrder) ?></span></td>
+                                    <td><span class="whitespace-nowrap bg-sky-100 text-sky-700 p-1 px-2 text-sm font-bold rounded-full"><?= formatNumber($totalSumInventory) ?></span></td>
                                     <td></td>
                                     <td></td>
                                 </tr>

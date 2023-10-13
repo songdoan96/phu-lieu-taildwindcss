@@ -42,7 +42,7 @@ if (!count($items)) {
 
 if (count($items)) { ?>
     <div class="p-4" id="items">
-        <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-orange-500"><?= $headerTitle ?></h2>
+        <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-teal-600"><?= $headerTitle ?></h2>
 
 
         <div id="table" class="w-full">
@@ -74,36 +74,32 @@ if (count($items)) { ?>
                                 $ordersItem = DB::table('items')->where('order_id', '=', $item->item_id)->fetchAll();
                             ?>
                                 <tr item-id="<?= $item->item_id ?>" class="hover:bg-muted-100 dark:hover:bg-muted-900 transition-colors duration-200">
-
-
-
-
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= formatDate($item->item_date) ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= formatDate($item->item_date) ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a>
                                     </td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_customer ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="het.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_model ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a title="<?= $item->item_id ?>" href="het.php?ma-hang=<?= $item->item_style ?>&plieu=<?= $item->item_type ?>"><?= $item->item_type ?></a>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_customer ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><a href="het.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_model ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><a title="<?= $item->item_id ?>" href="het.php?ma-hang=<?= $item->item_style ?>&plieu=<?= $item->item_type ?>"><?= $item->item_type ?></a>
                                     </td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_item ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_color ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_params ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_size ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_unit ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_po ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 dark:text-white py-2 px-1 bg-green-700 text-green-200"><a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_note ?></td>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1">
-                                        <div class="flex gap-4 items-center">
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_item ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_color ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_params ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_size ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_unit ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_po ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 dark:text-muted-200 py-2 px-1 bg-green-700 text-green-200"><a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_note ?></td>
+                                    <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1">
+                                        <div class="flex gap-4 items-center justify-center">
 
                                             <button title="Chi tiết xuất" type="button" class="btn-show-order w-5 transform hover:text-blue-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
                                                 <svg class="img-show" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                 </svg>
-                                                <svg class="hidden img-hidden" viewBox="0 0 24 24" fill="none">
-                                                    <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                <svg class="hidden img-hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                             </button>
                                             <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
@@ -121,22 +117,22 @@ if (count($items)) { ?>
                                 <?php
                                 foreach ($ordersItem as $orderItem) { ?>
                                     <tr item-id="<?= $orderItem->item_id ?>" parent-id="<?= $item->item_id ?>" class="hidden text-center bg-red-300 hover:bg-red-300/80 transition-colors duration-200">
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_date ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_container ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_customer ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_style ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_model ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1" title="<?= $orderItem->item_id ?>"><?= $orderItem->item_type ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_item ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_color ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_params ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_size ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_unit ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_po ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_qty ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1"><?= $orderItem->item_note ?></td>
-                                        <td class="text-sm border-r dark:border-muted-700 text-muted-600 py-2 px-1">
-                                            <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_date ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_container ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_customer ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_style ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_model ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1" title="<?= $orderItem->item_id ?>"><?= $orderItem->item_type ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_item ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_color ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_params ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_size ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_unit ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_po ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_qty ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1"><?= $orderItem->item_note ?></td>
+                                        <td class="text-sm border-r dark:border-muted-700 text-muted-700 py-2 px-1">
+                                            <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block text-right">
                                                 <input type="hidden" name="delete-id" id="delete-id" value="<?= $orderItem->item_id ?>">
                                                 <input type="hidden" name="redo-sold-out" value="<?= $item->item_id ?>">
                                                 <button type="button" data-id="<?= $orderItem->item_id ?>" class="btn-show-modal w-5 transform hover:text-red-500 transition hover:scale-110">
@@ -203,7 +199,7 @@ if (count($items)) { ?>
                             <td class="border px-1 py-2"><?= $item->item_po ?></td>
                             <td class="border bg-green-700 text-green-200 underline-offset-2 py-2 px-1"><a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a></td>
                             <td class="border px-1 py-2"><?= $item->item_note ?></td>
-                            <td class="border w-16 px-2">
+                            <td class="border w-16 px-2 text-muted-700 dark:text-muted-200">
                                 <div class="flex gap-1 justify-between items-center">
 
                                     <button title="Chi tiết xuất" type="button" class="btn-show-order w-5 transform hover:text-blue-500 transition hover:scale-125" data-id="<?= $item->item_id ?>">
@@ -211,8 +207,8 @@ if (count($items)) { ?>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
-                                        <svg class="hidden img-hidden" viewBox="0 0 24 24" fill="none">
-                                            <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <svg class="hidden img-hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </button>
                                     <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">

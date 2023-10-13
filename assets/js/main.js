@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //   localStorage.setItem("dark-mode", darkMode);
   // });
   const darkModeToggle = document.getElementById("btn-dark");
-  darkModeToggle.addEventListener("click", () => {
+  darkModeToggle?.addEventListener("click", () => {
     document.querySelector("html").classList.toggle("dark");
     const isDark = document.querySelector("html").classList.contains("dark");
     localStorage.setItem("isDark", JSON.stringify(isDark));

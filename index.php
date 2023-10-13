@@ -24,11 +24,11 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
 ?>
 <div class="p-4" id="items">
-    <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-orange-500"><?= $headerTitle ?></h2>
+    <h2 id="item-title" class="text-center font-bold text-xl md:text-2xl dark:text-muted-200 mb-4 text-teal-600"><?= $headerTitle ?></h2>
     <div id="table" class="w-full">
         <div class="border-muted-200 dark:border-muted-700 border rounded-md overflow-hidden shadow-lg">
-            <div class="inline-block min-w-full align-middle">
-                <table class="divide-muted-200 dark:divide-muted-700 min-w-full table-fixed divide-y text-center">
+            <div class="min-w-full align-middle relative overflow-x-auto">
+                <table class=" divide-muted-200 dark:divide-muted-700 min-w-full table-fixed divide-y text-center">
                     <thead>
                         <tr>
                             <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Ngày</th>
@@ -36,7 +36,7 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
                             <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Khách hàng</th>
                             <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Mã hàng</th>
                             <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Model</th>
-                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4" style="min-width: 140px;">Loại</th>
+                            <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Loại</th>
                             <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Item</th>
                             <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Màu</th>
                             <th class="text-muted-700 dark:text-muted-400 font-bold text-xs uppercase border-muted-200 dark:border-muted-700 last:border-e-none dark:bg-muted-800 border-r bg-white px-1 py-4">Thông số</th>
@@ -53,31 +53,25 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
                         <?php foreach ($items as $item) { ?>
                             <tr class="hover:bg-muted-100 dark:hover:bg-muted-900 transition-colors duration-200">
-
-
-
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= formatDate($item->item_date) ?></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_customer ?></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_model ?></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><a href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_item ?></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_color ?></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_params ?></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_size ?></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_unit ?></td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_po ?></td>
-
-
-
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= formatDate($item->item_date) ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><a href="items.php?khoang=<?= $item->item_container ?>"><?= $item->item_container ?></a></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_customer ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><a href="items.php?ma-hang=<?= $item->item_style ?>"><?= $item->item_style ?></a></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_model ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><a href="items.php?ma-hang=<?= $item->item_style ?>&type=<?= $item->item_type ?>&color=<?= $item->item_color ?>&size=<?= $item->item_size ?>&params=<?= $item->item_params ?>"><?= $item->item_type ?></a></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_item ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_color ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_params ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_size ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_unit ?></td>
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap"><?= $item->item_po ?></td>
                                 <?php
                                 if (!$item->order_id) { ?>
-                                    <td class="text-sm border-r dark:border-muted-700  dark:text-white bg-green-700 text-green-200">
+                                    <td class="text-sm border-r dark:border-muted-700 dark:text-muted-200 bg-green-700 text-green-200 whitespace-nowrap">
                                         <a href="nhap-kho.php?id=<?= $item->item_id ?>"><?= formatNumber($item->item_qty) ?></a>
                                     </td>
                                 <?php } else { ?>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white">
+                                    <td class="text-sm border-r dark:border-muted-700 whitespace-nowrap">
                                         <a class="no-underline flex justify-center text-green-600 dark:text-green-300 transition hover:scale-125" href="nhap-kho.php?id=<?= $item->item_id ?>">
                                             <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
                                                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -89,11 +83,11 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
                                 <?php } ?>
                                 <?php
                                 if ($item->order_id) { ?>
-                                    <td class="text-sm border-r dark:border-muted-700  dark:text-white bg-red-700 text-red-200">
+                                    <td class="text-sm border-r dark:border-muted-700  dark:text-white bg-red-700 text-red-200 whitespace-nowrap">
                                         <a href="xuat-kho.php?id=<?= $item->order_id ?>"><?= formatNumber($item->item_qty) ?></a>
                                     </td>
                                 <?php } else { ?>
-                                    <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white">
+                                    <td class="text-sm border-r dark:border-muted-700">
                                         <a class="no-underline flex justify-center text-red-600 dark:text-red-300 transition hover:scale-125" href="xuat-kho.php?id=<?= $item->item_id ?>">
                                             <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
                                                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -103,8 +97,8 @@ $_SESSION['page'] = $_SERVER['REQUEST_URI'];
                                     </td>
                                 <?php } ?>
                                 </td>
-                                <td class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1"><?= $item->item_note ?></td>
-                                <td title="<?= $item->item_id ?>" class="text-sm border-r dark:border-muted-700 text-muted-500 dark:text-white py-2 px-1">
+                                <td class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1"><?= $item->item_note ?></td>
+                                <td title="<?= $item->item_id ?>" class="text-sm border-r dark:border-muted-700 text-muted-700 dark:text-muted-200 py-2 px-1 whitespace-nowrap">
                                     <div class="flex gap-1 justify-center items-center px-2">
                                         <form id="form-delete" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="inline-block">
                                             <input type="hidden" name="delete-id" id="delete-id" value="<?= $item->item_id ?>">

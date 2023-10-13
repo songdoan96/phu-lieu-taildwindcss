@@ -51,27 +51,27 @@ require_once "DB.php";
     ?>
 
 
-    <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+    <div class="min-h-screen bg-gray-100 dark:bg-muted-800 text-gray-900 flex justify-center">
         <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg overflow-hidden flex justify-center flex-1">
-            <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 order-2">
+            <div class="w-full lg:w-1/2 xl:w-5/12 p-6 sm:p-12 order-2 dark:bg-muted-700">
                 <div>
-                    <img src="assets/img/logo.png" class="w-32 mx-auto" />
+                    <img src="assets/img/logo-1.png" class="w-32 mx-auto" />
                 </div>
                 <div class="mt-12 flex flex-col items-center">
-                    <h1 class="text-2xl font-extrabold uppercase">
+                    <h1 class="text-2xl font-extrabold uppercase dark:text-muted-200">
                         Đăng nhập
                     </h1>
                     <div class="w-full flex-1 mt-8">
                         <form class="mx-auto max-w-xs" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
                             <div class="mb-5">
-                                <label for="username" class="block mb-1 font-medium text-gray-900 dark:text-white">Tài khoản</label>
-                                <input type="username" id="username" name="username" value="admin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                                <label for="username" class="block mb-1 font-medium text-gray-900 dark:text-muted-200">Tài khoản</label>
+                                <input type="username" id="username" name="username" value="admin" class="bg-muted-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 dark:bg-muted-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-muted-200 dark:focus:ring-teal-500 dark:focus:border-teal-500" required="">
                             </div>
                             <div class="">
-                                <label for="password" class="block mb-1 font-medium text-gray-900 dark:text-white">Mật khẩu</label>
-                                <input type="password" id="password" name="password" value="admin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                                <label for="password" class="block mb-1 font-medium text-gray-900 dark:text-muted-200">Mật khẩu</label>
+                                <input type="password" id="password" name="password" value="admin" class="bg-muted-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 dark:bg-muted-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-muted-200 dark:focus:ring-teal-500 dark:focus:border-teal-500" required="">
                             </div>
-                            <button name="login-form" type="submit" class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                            <button name="login-form" type="submit" class="mt-5 tracking-wide font-semibold w-full py-4 rounded-lg bg-teal-500 hover:bg-teal-600 text-muted-700 dark:bg-muted-500 dark:hover:bg-muted-600 dark:text-muted-200 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                 <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                                     <circle cx="8.5" cy="7" r="4" />

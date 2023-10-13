@@ -12,18 +12,14 @@
 </head>
 
 <body class="bg-muted-100 dark:bg-muted-900">
-    <!-- <div class="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white">
-        <div class="h-16 w-16 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent"></div>
-    </div> -->
     <nav class="shadow dark:shadow-muted-800 border-gray-200">
-        <div class="container flex flex-wrap items-center justify-between mx-auto px-4 py-1">
+        <div class="flex flex-wrap items-center justify-between mx-auto px-4 py-1">
             <a id="logo" href="index.php" class="text-main-600 dark:text-white flex items-center uppercase text-2xl font-extrabold">
                 <img src="assets/img/logo-1.png" class="w-14" alt="Logo">
             </a>
             <div class="flex md:order-2 gap-2 h-10" id="nav-right">
-
                 <?php if (isset($_SESSION['user'])) { ?>
-                    <form method="get" action="items.php" class="hidden md:block relative overflow-hidden w-72 h-full rounded text-black dark:text-muted-100">
+                    <form method="get" action="items.php" class="hidden md:block relative h-full md:w-64 lg:w-72 rounded text-black dark:text-muted-100">
                         <select name="search-type" id="form-search-list" class="absolute left-0 z-20 h-full border-r border-muted-300 dark:border-muted-950 outline-none px-1 text-sm bg-muted-200 dark:bg-muted-700 dark:hover:bg-muted-600">
                             <option value="type">PHỤ LIỆU</option>
                             <option value="ma-hang">MÃ HÀNG</option>
@@ -34,7 +30,6 @@
                             <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
                             </svg>
-                            <span class="sr-only">Search</span>
                         </button>
                     </form>
                     <button type="button" id="mobile-btn" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">
@@ -50,7 +45,7 @@
                 if (!isset($_SESSION['user'])) { ?>
                     <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="login.php">Đăng nhập</a>
                 <?php } else { ?>
-                    <a href="nhap-kho.php" class="hover:-translate-y-0.5 w-10 h-w-10 bg-blue-700 hover:bg-blue-800 p-2 rounded flex items-center justify-center">
+                    <a href="nhap-kho.php" class="hover:-translate-y-0.5 w-10 h-w-10 bg-teal-600 hover:bg-teal-700 dark:bg-muted-500 dark:hover:bg-muted-600 p-2 rounded flex items-center justify-center">
                         <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6 inline-block">
                             <path fill="#FFFFFF" d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
             C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
@@ -80,26 +75,24 @@
                 </div>
             </div>
             <?php if (isset($_SESSION['user'])) { ?>
-                <div class="items-center justify-between w-full md:flex md:w-auto md:order-1" id="navbar-search">
-                    <div id="mobile-search" class="relative mt-3 hidden md:hidden">
-
-                        <form method="get" action="items.php" class="flex items-center md:hidden overflow-hidden max-w-xl">
-                            <select name="search-type" id="form-mobile-search-list" class="border border-second-500 rounded p-2">
+                <div class="items-center justify-between md:flex md:order-1 w-full md:w-auto" id="navbar-search">
+                    <div id="mobile-search" class="mt-3 hidden md:hidden">
+                        <form method="get" action="items.php" class="relative mx-auto max-w-lg h-10 overflow-hidden rounded">
+                            <select name="search-type" id="form-mobile-search-list" class="absolute left-0 z-20 h-full border-r border-muted-300 dark:border-muted-950 outline-none px-1 text-sm bg-muted-200 dark:bg-muted-700 dark:hover:bg-muted-600 text-muted-700 dark:text-muted-300">
                                 <option value="type">PHỤ LIỆU</option>
                                 <option value="ma-hang">MÃ HÀNG</option>
                                 <option value="po">PO</option>
                             </select>
-                            <input type="text" name="search-value" id="search-mobile-input" class="h-full w-full rounded-r-lg border p-2" placeholder="Tìm kiếm...">
-                            <button type="submit" class="absolute right-0 bg-blue-600 text-white h-full px-2 rounded-r-lg">
+                            <input type="text" name="search-value" id="search-mobile-input" class="absolute z-10 pl-28 outline-none w-full h-full px-2 py-1.5 bg-muted-200 dark:bg-muted-700 dark:hover:bg-muted-600 text-muted-700 dark:text-muted-300" placeholder="Tìm kiếm...">
+                            <button type="submit" class="absolute right-0 z-20 py-2 px-3 border-l border-muted-300 dark:border-muted-950 dark:bg-muted-700 dark:hover:bg-muted-600 h-full text-muted-700 dark:text-muted-300">
                                 <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
                                 </svg>
-                                <span class="sr-only">Search</span>
                             </button>
                         </form>
                     </div>
                     <!-- <ul id="main-nav" class="hidden uppercase md:flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-400 md:dark:bg-gray-400 dark:border-gray-700 "> -->
-                    <ul id="main-nav" class="flex p-4 items-center gap-4 hidden uppercase flex-col md:flex md:flex-row md:gap-8 text-black dark:text-muted-200 font-semibold">
+                    <ul id="main-nav" class="flex p-4 items-center gap-4 hidden uppercase flex-col md:flex md:flex-row sm:gap-6 lg:gap-8 text-black dark:text-muted-200 font-semibold">
                         <li>
                             <a href="khoang.php" class="" aria-current="page">Khoang</a>
                         </li>

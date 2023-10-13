@@ -85,3 +85,8 @@ a[href="https://www.freewebhostingarea.com"]
     transform: translateY(0);
   }
 }
+
+#main-nav a:hover {
+  color: teal;
+  transition: color 0.3s ease;
+}
