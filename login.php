@@ -58,7 +58,7 @@ require_once "DB.php";
                     <img src="assets/img/logo-1.png" class="w-32 mx-auto" />
                 </div>
                 <div class="mt-12 flex flex-col items-center">
-                    <h1 class="text-2xl font-extrabold uppercase dark:text-muted-200">
+                    <h1 class="text-2xl font-extrabold uppercase text-muted-700 dark:text-muted-200">
                         Đăng nhập
                     </h1>
                     <div class="w-full flex-1 mt-8">
