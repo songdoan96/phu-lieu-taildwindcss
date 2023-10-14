@@ -1,5 +1,5 @@
 /.idea
-*.sql
+# *.sql
 node_modules
 /.vscode
 pnpm-lock.yaml
